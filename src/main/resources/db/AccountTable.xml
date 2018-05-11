@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.aimfd.world.dao.AccountTableDao">
+	<!-- insert -->
+	<insert id="insert" keyProperty="accountId" useGeneratedKeys="true"
+		parameterType="org.aimfd.world.entity.AccountTable">
+		INSERT INTO t_account(c_name,c_account)
+		VALUES(#{name},#{account})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM t_account
+		<where>
+			c_id=#{accountId}
+		</where>
+	</delete>
+
+	<!-- 查找帐号id -->
+	<select id="getIdByAccount" parameterType="java.lang.String">
+		SELECT c_id
+		FROM t_account
+		<where>
+			c_accont=#{account}
+		</where>
+	</select>
+
+	<!-- 根据id查找 -->
+	<select id="find" parameterType="int"
+		resultType="org.aimfd.world.entity.AccountTable">
+		SELECT
+		c_id as id,
+		c_name as name,
+		c_account as account
+		FROM
+		t_account
+		<where>
+			c_id=#{accountId}
+		</where>
+	</select>
+
+	<!-- 根据id查找 -->
+	<select id="findByAccount" parameterType="java.lang.String"
+		resultType="org.aimfd.world.entity.AccountTable">
+		SELECT
+		c_id as id,
+		c_name as name,
+		c_account as account
+		FROM
+		t_account
+		<where>
+			c_account=#{account}
+		</where>
+		LIMIT 1
+	</select>
+
+	<!-- 根据id查找 -->
+	<select id="findAll" parameterType="java.lang.String"
+		resultType="org.aimfd.world.entity.AccountTable">
+		SELECT
+		c_id as id,
+		c_name as name,
+		c_account as account
+		FROM
+		t_account
+		<where>
+			c_account=#{account}
+		</where>
+	</select>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="org.aimfd.world.entity.AccountTable">
+		UPDATE t_account
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="account!=null">c_account=#{account},</if>
+			<if test="place!=null">c_name=#{name},</if>
+		</trim>
+		<where>c_id=#{accountId}</where>
+	</update>
+
+</mapper>
