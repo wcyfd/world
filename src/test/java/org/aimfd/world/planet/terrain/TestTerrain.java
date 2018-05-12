@@ -14,18 +14,27 @@ public class TestTerrain {
 	@Before
 	public void before() {
 		planet = new Planet(1);
+		planet.setLogicName("demo_planet");
 
 		module = new TerrainInitModule(planet);
 
 	}
 
+	// int LEFT_TOP = 0;
+	// int RIGHT_TOP = 1;
+	// int RIGHT = 2;
+	// int RIGHT_BUTTOM = 3;
+	// int LEFT_BUTTOM = 4;
+	// int LEFT = 5;
+
 	@Test
 	public void exec() {
-		module.terrainInit(2, 3);
+		module.terrainInit(3, 3);
 		ITerrainData terrainData = planet.getPlanetAllData().getPlanetData().getTerrainData();
 		for (int i = 0; i < terrainData.getTerrainUnitCount(); i++) {
 			ITerrainUnitData unitData = terrainData.getTerrainUnitData(i);
 			System.out.println(unitData.getId() + "" + unitData.getTerrainUnits());
 		}
 	}
+
 }

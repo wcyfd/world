@@ -3,6 +3,7 @@ package org.aimfd.world.planet.terrain.manager.module;
 import org.aimfd.world.planet.Planet;
 import org.aimfd.world.planet.terrain.data.ITerrainData;
 import org.aimfd.world.planet.terrain.data.unit.ITerrainUnitData;
+import org.slf4j.Logger;
 
 /**
  * 地图初始化模块
@@ -12,9 +13,11 @@ import org.aimfd.world.planet.terrain.data.unit.ITerrainUnitData;
  */
 public class TerrainInitModule {
 
+	private Logger logger;
 	private ITerrainData terrainData;
 
 	public TerrainInitModule(Planet planet) {
+		this.logger = planet.logger();
 		this.terrainData = planet.getPlanetAllData().getPlanetData().getTerrainData();
 	}
 
@@ -36,13 +39,15 @@ public class TerrainInitModule {
 		int tempFirstId = 0;
 		int lastId = -1;
 		for (int id = 0, j = 0; j < height; j++) {
+			logger.info("第{}行", j);
 			for (int i = 0; i < width; i++) {
 				ITerrainUnitData unitData = terrainData.getTerrainUnitData(id);
 
 				/****** 绑定左边 *****/
 				// 新的一行
 				if (isNewLineFirst) {
-					tempFirstId = id;// 记录上一行的第一个板块id
+					lastId = tempFirstId;// 将上一行的第一个放入准备绑定的索引
+					tempFirstId = id;// 记录这一行的第一个板块id
 				} else {
 					// 绑定左边,双向绑定
 					ITerrainUnitData leftUnitData = terrainData.getTerrainUnitData(id - 1);
@@ -75,7 +80,7 @@ public class TerrainInitModule {
 					if (isOdd) {// 奇数行
 						// 奇数行最后一个没有右上
 						if (i + 1 != width) {
-							ITerrainUnitData rightTopUnitData = terrainData.getTerrainUnitData(lastId + 1);
+							ITerrainUnitData rightTopUnitData = terrainData.getTerrainUnitData(lastId);
 							unitData.bindTerrainUnitData(RIGHT_TOP, rightTopUnitData);
 							rightTopUnitData.bindTerrainUnitData(LEFT_BUTTOM, unitData);
 						}
@@ -91,9 +96,13 @@ public class TerrainInitModule {
 					lastId++;
 				id++;
 				terrainData.setTerrainUnitCount(terrainData.getTerrainUnitCount() + 1);
+
+				for (int m = 0; m < terrainData.getTerrainUnitCount(); m++) {
+					logger.debug("unitData id {} {}", terrainData.getTerrainUnitData(m).getId(), terrainData.getTerrainUnitData(m).getTerrainUnits());
+				}
 			}
 
-			lastId = tempFirstId;
+			// lastId = tempFirstId;
 			isOdd = !isOdd;
 			width += isOdd ? 1 : -1;
 			isNewLineFirst = true;
