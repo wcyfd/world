@@ -26,7 +26,7 @@ public class LoggerPrefix implements Logger {
 
 	@Override
 	public void debug(String arg0, Object arg1) {
-		logger.debug(prefix + arg0);
+		logger.debug(prefix + arg0, arg1);
 	}
 
 	@Override
