@@ -9,6 +9,7 @@ import org.aimfd.base.LoggerPrefix;
 import org.aimfd.base.LoggerPrefixFactory;
 import org.aimfd.base.SpringContext;
 import org.aimfd.world.planet.enterprise.IEnterprisePublic;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Planet {
@@ -40,6 +41,15 @@ public class Planet {
 	 */
 	public void setLogicName(String planetLogicName) {
 		this.logger.setPrefix("[" + planetId + ":" + planetLogicName + "]");
+	}
+
+	/**
+	 * 获取日志记录器
+	 * 
+	 * @return
+	 */
+	public Logger logger() {
+		return logger;
 	}
 
 	/**
