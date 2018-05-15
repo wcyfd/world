@@ -30,13 +30,13 @@ public class EnterpriseUnitData extends EnterpriseUnitDataCodec implements IData
 	}
 
 	@Override
-	public int getTerraformRate() {
-		return terraformRate;
+	public int getTr() {
+		return tr;
 	}
 
 	@Override
-	public void setTerraformRate(int rate) {
-		this.terraformRate = rate;
+	public void setTr(int rate) {
+		this.tr = rate;
 	}
 
 	@Override
@@ -50,10 +50,32 @@ public class EnterpriseUnitData extends EnterpriseUnitDataCodec implements IData
 	}
 
 	@Override
+	public int getIron() {
+		return iron;
+	}
+
+	@Override
+	public void setIron(int iron) {
+		this.iron = iron;
+	}
+
+	@Override
+	public int getTi() {
+		return ti;
+	}
+
+	@Override
+	public void setTi(int ti) {
+		this.ti = ti;
+	}
+
+	@Override
 	public void resetData() {
 		account = null;
 		bonus = -1;
-		terraformRate = -1;
+		tr = -1;
+		iron = -1;
+		ti = -1;
 	}
 
 }

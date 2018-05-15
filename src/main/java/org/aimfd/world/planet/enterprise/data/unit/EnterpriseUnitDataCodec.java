@@ -5,9 +5,11 @@ import org.aimfd.world.IDataCodec;
 public class EnterpriseUnitDataCodec implements IDataCodec<String, String> {
 
 	protected int id;
-	protected int bonus;
-	protected int terraformRate;
 	protected String account;
+	protected int bonus;
+	protected int tr;
+	protected int iron;
+	protected int ti;
 
 	@Override
 	public String encode() {

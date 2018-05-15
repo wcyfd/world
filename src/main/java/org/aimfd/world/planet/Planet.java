@@ -28,6 +28,9 @@ public class Planet {
 		this.planetId = planetId;
 		this.planetAllData = new PlanetAllData();
 		this.logger = LoggerPrefixFactory.getLogger(Planet.class);
+
+		logger.setPrefix("planet" + planetId + ":");
+		logger.info("初始化成功");
 	}
 
 	public int getPlanetId() {

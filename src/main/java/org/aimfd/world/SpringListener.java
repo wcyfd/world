@@ -12,7 +12,7 @@ public class SpringListener implements ApplicationListener<ApplicationStartedEve
 
 		SpringContext.setApplicationContext(event.getApplicationContext());
 
-		GameSocket gameSocket = new GameSocket();
+		GameSocket gameSocket = new WorldGameSocket();
 
 		gameSocket.buildServer();
 		gameSocket.setPort(8081);

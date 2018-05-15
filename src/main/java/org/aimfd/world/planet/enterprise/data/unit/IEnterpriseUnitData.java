@@ -28,14 +28,14 @@ public interface IEnterpriseUnitData {
 	 * 
 	 * @return
 	 */
-	int getTerraformRate();
+	int getTr();
 
 	/**
 	 * 设置开发率
 	 * 
 	 * @param rate
 	 */
-	void setTerraformRate(int rate);
+	void setTr(int rate);
 
 	/**
 	 * 获取奖励点
@@ -50,4 +50,32 @@ public interface IEnterpriseUnitData {
 	 * @param bonus
 	 */
 	void setBonus(int bonus);
+
+	/**
+	 * 获得钢铁
+	 * 
+	 * @return
+	 */
+	int getIron();
+
+	/**
+	 * 设置钢铁量
+	 * 
+	 * @param iron
+	 */
+	void setIron(int iron);
+
+	/**
+	 * 获得钛
+	 * 
+	 * @return
+	 */
+	int getTi();
+
+	/**
+	 * 设置钛
+	 * 
+	 * @param ti
+	 */
+	void setTi(int ti);
 }
