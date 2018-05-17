@@ -1,8 +1,6 @@
 package org.aimfd.world.player.account.db;
 
-import org.aimfd.base.DBManager;
 import org.aimfd.world.IDBAPI;
-import org.aimfd.world.entity.AccountTable;
 import org.aimfd.world.player.Player;
 import org.aimfd.world.player.account.data.IAccountData;
 
@@ -28,7 +26,7 @@ public class AccountDB implements IDBAPI {
 
 	@Override
 	public void dbLoad() {
-		DBManager.loadTable(AccountTable.class, accountData, "findByAccount", new Class<?>[] { String.class }, new Object[] { player.getAccount() });
+//		DBManager.loadTable(AccountTable.class, accountData, "findByAccount", new Class<?>[] { String.class }, new Object[] { player.getAccount() });
 	}
 
 }
