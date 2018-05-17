@@ -18,8 +18,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.bytes.ByteArrayDecoder;
-import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.AttributeKey;
@@ -85,15 +85,18 @@ public abstract class Socket<T> extends SocketConfig {
 							// }
 
 							// Decoders
-							pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, -4, 4));
-							pipeline.addLast("bytesDecoder", new ByteArrayDecoder());
+							pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+							// pipeline.addLast("bytesDecoder", new ByteArrayDecoder());
+							pipeline.addLast("stringDecoder", new StringDecoder());
 							// filter
 
 							pipeline.addLast("handler", new ServerHandler());
 
 							// Encoder
-							pipeline.addLast("frameEncoder", new LengthFieldPrepender(4, 4, false));
-							pipeline.addLast("bytesEncoder", new ByteArrayEncoder());
+							// pipeline.addLast("frameEncoder", new LengthFieldPrepender(4, 4, false));
+							pipeline.addLast("frameEncoder", new LengthFieldPrepender(4, false));
+							// pipeline.addLast("bytesEncoder", new ByteArrayEncoder());
+							pipeline.addLast("stringEncoder", new StringEncoder());
 
 						}
 
@@ -131,6 +134,8 @@ public abstract class Socket<T> extends SocketConfig {
 		 */
 		@Override
 		protected void channelRead0(ChannelHandlerContext ctx, T msg) throws Exception {
+			logger.info("{}", msg);
+			serverDataReceive(ctx.channel(), msg);
 		}
 
 		/**
@@ -156,7 +161,7 @@ public abstract class Socket<T> extends SocketConfig {
 			}
 
 			if (clientID != null) {
-//				connectDisconnectDecrementIpCount(ctx.channel());// 一般留给Door去释放IP统计的
+				// connectDisconnectDecrementIpCount(ctx.channel());// 一般留给Door去释放IP统计的
 				if (clientID == -1) {
 					myServerDisconnect(ctx.channel(), serverName);
 				} else {
