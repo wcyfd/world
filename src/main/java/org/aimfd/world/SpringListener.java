@@ -1,5 +1,7 @@
 package org.aimfd.world;
 
+import org.aimfd.base.DispatchJSONRequest;
+import org.aimfd.base.DispatchRequest;
 import org.aimfd.base.GameSocket;
 import org.aimfd.base.SpringContext;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -14,6 +16,10 @@ public class SpringListener implements ApplicationListener<ApplicationStartedEve
 
 		GameSocket gameSocket = new WorldGameSocket();
 
+		DispatchRequest request = SpringContext.getContext().getBean(DispatchJSONRequest.class);
+		
+		gameSocket.setDispatchRequest(request);
+		
 		gameSocket.buildServer();
 		gameSocket.setPort(8081);
 		gameSocket.start();
