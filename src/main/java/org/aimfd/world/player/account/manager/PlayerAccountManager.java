@@ -3,13 +3,14 @@ package org.aimfd.world.player.account.manager;
 import org.aimfd.base.PlayerManagerRegistry;
 import org.aimfd.world.IDBAPI;
 import org.aimfd.world.player.PlayerManager;
+import org.aimfd.world.player.account.IAccountInternal;
 import org.aimfd.world.player.account.IAccountPublic;
 import org.aimfd.world.player.account.db.AccountDB;
 import org.aimfd.world.player.account.manager.module.LoginModule;
 import org.springframework.stereotype.Service;
 
 @Service
-@PlayerManagerRegistry({ IAccountPublic.class })
+@PlayerManagerRegistry({ IAccountPublic.class, IAccountInternal.class })
 public class PlayerAccountManager extends PlayerManager implements IAccountPublic, IDBAPI {
 
 	private LoginModule loginModule;
