@@ -10,7 +10,11 @@ import io.netty.channel.Channel;
 public class GameSocket extends SocketCode {
 	private int maxPlayerCount;
 	private final LinkedBlockingQueue<Integer> clientIdQueue = new LinkedBlockingQueue<>();
-	private DispatchRequest dispatchRequest = new DispatchJSONRequest();
+	private DispatchRequest dispatchRequest;
+
+	public void setDispatchRequest(DispatchRequest dispatchRequest) {
+		this.dispatchRequest = dispatchRequest;
+	}
 
 	@Override
 	protected void init() {
@@ -34,6 +38,7 @@ public class GameSocket extends SocketCode {
 	protected void initData() {
 		for (int clientId = 0; clientId < maxPlayerCount; clientId++) {
 			Player player = new Player(clientId);
+			player.init();
 			PlayerCache.addPlayer(player);
 		}
 	}
@@ -55,6 +60,9 @@ public class GameSocket extends SocketCode {
 		Integer clientId = clientIdQueue.poll();
 		// 获取对应的玩家
 		Player player = PlayerCache.getPlayerByClientId(clientId);
+		// 通道与编号绑定
+		channel.attr(CLIENT_ID_KEY).set(clientId);
+
 		player.initPlayer(channel);
 
 	}
