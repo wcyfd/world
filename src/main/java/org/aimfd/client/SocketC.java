@@ -19,8 +19,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.bytes.ByteArrayDecoder;
-import io.netty.handler.codec.bytes.ByteArrayEncoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -57,14 +57,18 @@ public class SocketC {
 
 				// Decoders
 				pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, -4, 4));
-				pipeline.addLast("bytesDecoder", new ByteArrayDecoder());
+				// pipeline.addLast("bytesDecoder", new ByteArrayDecoder());
+				
+				pipeline.addLast("stringdecoder", new StringDecoder());
 				// filter
 
 				pipeline.addLast("handler", new ClientHandler());
 
 				// Encoder
-				pipeline.addLast("frameEncoder", new LengthFieldPrepender(4, 4, false));
-				pipeline.addLast("bytesEncoder", new ByteArrayEncoder());
+				// pipeline.addLast("frameEncoder", new LengthFieldPrepender(4, 4, false));
+				pipeline.addLast("frameEncoder", new LengthFieldPrepender(4, false));
+//				pipeline.addLast("bytesEncoder", new ByteArrayEncoder());
+				pipeline.addLast("stringencoder", new StringEncoder());
 
 			}
 
