@@ -3,22 +3,31 @@ package org.aimfd.world.system.match.manager;
 import org.aimfd.base.SystemManagerRegistry;
 import org.aimfd.world.system.SystemManager;
 import org.aimfd.world.system.match.IMatchPublic;
+import org.aimfd.world.system.match.manager.module.BeginMatchModule;
+import org.aimfd.world.system.match.manager.module.CancelMatchModule;
 import org.springframework.stereotype.Service;
 
 @Service
 @SystemManagerRegistry(IMatchPublic.class)
 public class SystemMatchManager extends SystemManager implements IMatchPublic {
 
+	private BeginMatchModule beginMatchModule;
+	private CancelMatchModule cancelMatchModule;
+
+	@Override
+	protected void init() {
+		beginMatchModule = new BeginMatchModule();
+		cancelMatchModule = new CancelMatchModule();
+	}
+
 	@Override
 	public void beginMatch(String account) {
-		// TODO Auto-generated method stub
-
+		beginMatchModule.beginMatch(account);
 	}
 
 	@Override
 	public void cancelMatch(String account) {
-		// TODO Auto-generated method stub
-
+		cancelMatchModule.cancelMatch(account);
 	}
 
 }

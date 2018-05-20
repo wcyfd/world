@@ -14,4 +14,8 @@ public class RegistModule {
 	public void regist(String account, int planetId) {
 		roomData.getRoomMap().put(account, planetId);
 	}
+
+	public boolean atRoom(String account) {
+		return roomData.getRoomMap().containsKey(account);
+	}
 }
