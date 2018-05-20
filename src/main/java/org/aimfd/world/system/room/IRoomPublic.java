@@ -22,4 +22,12 @@ public interface IRoomPublic {
 	 * @param account
 	 */
 	void unregist(String account);
+
+	/**
+	 * 是否在房间
+	 * 
+	 * @param account
+	 * @return
+	 */
+	boolean atRoom(String account);
 }

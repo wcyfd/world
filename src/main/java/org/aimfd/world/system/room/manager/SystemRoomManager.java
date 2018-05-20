@@ -30,4 +30,9 @@ public class SystemRoomManager extends SystemManager implements IRoomPublic {
 		unRegistModule.unRegist(account);
 	}
 
+	@Override
+	public boolean atRoom(String account) {
+		return registModule.atRoom(account);
+	}
+
 }
