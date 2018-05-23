@@ -1,11 +1,17 @@
 package org.aimfd.client.handler;
 
-import org.aimfd.client.ClientMain;
+import org.aimfd.client.Request;
+import org.aimfd.client.socketc.Client;
 
 import com.alibaba.fastjson.JSONObject;
 
-public class AccountRequest {
-	public static void login(String account, String name, int age) {
+public class AccountRequest extends Request {
+
+	public AccountRequest(Client client) {
+		super(client);
+	}
+
+	public void login(String account, String name, int age) {
 		JSONObject req = new JSONObject();
 		req.put("name", "login");
 
@@ -17,6 +23,6 @@ public class AccountRequest {
 		req.put("param", param);
 
 		System.out.println(req);
-		ClientMain.client.getChannel().writeAndFlush(req.toJSONString());
+		client.getChannel().writeAndFlush(req.toJSONString());
 	}
 }

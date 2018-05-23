@@ -1,5 +1,12 @@
 package org.aimfd.client;
 
+import org.aimfd.client.socketc.Client;
+
 public class Request {
-	protected String name;
+
+	protected Client client;
+
+	public Request(Client client) {
+		this.client = client;
+	}
 }

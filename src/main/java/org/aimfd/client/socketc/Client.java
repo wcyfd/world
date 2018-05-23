@@ -1,4 +1,4 @@
-package org.aimfd.client;
+package org.aimfd.client.socketc;
 
 import java.net.InetSocketAddress;
 
@@ -25,7 +25,7 @@ import io.netty.util.AttributeKey;
 public class Client {
 
 	private final static AttributeKey<Integer> WRITER_IDLE_KEY = AttributeKey.<Integer>valueOf("WRITER_IDLE_KEY");
-	
+
 	private EventLoopGroup eventLoopGroup;
 	private Bootstrap bootstrap;
 
@@ -60,26 +60,24 @@ public class Client {
 		eventLoopGroup = new NioEventLoopGroup();
 
 		try {
-			bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class)
-					.handler(new ChannelInitializer<SocketChannel>() {
+			bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
 
-						@Override
-						protected void initChannel(SocketChannel channel) throws Exception {
-							ChannelPipeline pipeline = channel.pipeline();
-							pipeline.addLast("decoder",
-									new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-							pipeline.addLast("stringdecoder", new StringDecoder());
-//							pipeline.addLast("idle", new IdleStateHandler(0, 6, 0));
+				@Override
+				protected void initChannel(SocketChannel channel) throws Exception {
+					ChannelPipeline pipeline = channel.pipeline();
+					pipeline.addLast("decoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+					pipeline.addLast("stringdecoder", new StringDecoder());
+					// pipeline.addLast("idle", new IdleStateHandler(0, 6, 0));
 
-//							pipeline.addLast("heart-handler", new HeartHandler());
+					// pipeline.addLast("heart-handler", new HeartHandler());
 
-							pipeline.addLast("client-handler", new ClientHandler());
+					pipeline.addLast("client-handler", new ClientHandler());
 
-							pipeline.addLast("encoder", new LengthFieldPrepender(4, false));
-							pipeline.addLast("stringencoder", new StringEncoder());
+					pipeline.addLast("encoder", new LengthFieldPrepender(4, false));
+					pipeline.addLast("stringencoder", new StringEncoder());
 
-						}
-					}).option(ChannelOption.SO_KEEPALIVE, true);
+				}
+			}).option(ChannelOption.SO_KEEPALIVE, true);
 
 			while (!isClose) {
 				// 重连达到三次，直接断开
