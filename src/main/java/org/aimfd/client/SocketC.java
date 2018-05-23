@@ -23,7 +23,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
+@Deprecated
 public class SocketC {
 
 	private static final Logger logger = LoggerFactory.getLogger(SocketC.class);
