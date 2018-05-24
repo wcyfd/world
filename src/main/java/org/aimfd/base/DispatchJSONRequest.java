@@ -3,10 +3,13 @@ package org.aimfd.base;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 @Component
@@ -66,11 +69,41 @@ public class DispatchJSONRequest extends DispatchRequest {
 			// 获得请求对应方法参数的值
 			String name = clientParam.value();
 			// 获得请求的参数的值
-			Object value = requestParamObject.get(name);
+//			Object value = requestParamObject.get(name);
+			Object value = parseValue(requestParamObject, parameter, name);
+
+			// 如果是列表参数
+			if (value instanceof JSONArray) {
+				Class<?> clazz = parameter.getType();
+				Type type = ((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[0];
+				try {
+					value = requestParamObject.getJSONArray(name).toJavaList(Class.forName(type.getTypeName()));
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
 
 			objects[i] = value;
 		}
 		return objects;
 	}
 
+	private Object parseValue(JSONObject requestParamObject, Parameter parameter, String name) {
+		Object value = requestParamObject.get(name);
+
+		if (value instanceof JSONArray) {
+			Class<?> clazz = parameter.getType();
+			Type type = ((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[0];
+			try {
+				value = requestParamObject.getJSONArray(name).toJavaList(Class.forName(type.getTypeName()));
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else if (value instanceof JSONObject) {
+			Class<?> clazz = parameter.getType();
+			value = requestParamObject.getObject(name, clazz);
+		}
+
+		return value;
+	}
 }

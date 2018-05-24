@@ -1,6 +1,7 @@
-package org.aimfd.client.socketc;
+package org.aimfd.client;
 
 import org.aimfd.client.handler.AccountRequest;
+import org.aimfd.client.socketc.WorldRobot;
 
 public class ClientMain {
 

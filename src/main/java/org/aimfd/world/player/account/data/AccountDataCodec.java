@@ -1,25 +1,24 @@
 package org.aimfd.world.player.account.data;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataJSONCodec;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-public class AccountDataCodec implements IDataCodec<String, String> {
+public class AccountDataCodec implements IDataJSONCodec {
 	protected String account;
 	protected String name;
 
-	public String encode() {
+	@Override
+	public JSONObject encode() {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", account);
 		jsonObject.put("name", name);
-		return jsonObject.toJSONString();
+		return jsonObject;
 	}
 
-	public void decode(String input) {
-		JSONObject decoder = JSON.parseObject(input);
-		account = decoder.getString("account");
-		name = decoder.getString("name");
-
+	@Override
+	public void decode(JSONObject source) {
+		account = source.getString("account");
+		name = source.getString("name");
 	}
 }

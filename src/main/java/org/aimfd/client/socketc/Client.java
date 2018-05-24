@@ -156,7 +156,7 @@ public class Client {
 		@Override
 		protected void channelRead0(ChannelHandlerContext arg0, String arg1) throws Exception {
 			System.out.println("客户端读取数据<异步>:" + arg1);
-
+			receiveData(arg0, arg1);
 		}
 
 		@Override
@@ -194,11 +194,7 @@ public class Client {
 
 	}
 
-	private static Client client = new Client();
-
-	public static void main(String[] args) {
-		client = new Client();
-		client.start();
+	protected void receiveData(ChannelHandlerContext ctx, String arg1) throws Exception {
 
 	}
 

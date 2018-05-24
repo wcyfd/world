@@ -1,6 +1,6 @@
 package org.aimfd.world.player.account.db;
 
-import org.aimfd.world.IDBAPI;
+import org.aimfd.base.IDBAPI;
 import org.aimfd.world.player.Player;
 import org.aimfd.world.player.account.data.IAccountData;
 

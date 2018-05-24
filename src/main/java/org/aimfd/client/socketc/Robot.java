@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.netty.channel.ChannelHandlerContext;
+
 public class Robot extends Client {
 
 	protected Map<Class<?>, Object> requestMap = new HashMap<>();
@@ -25,5 +27,10 @@ public class Robot extends Client {
 	@SuppressWarnings("unchecked")
 	public <T> T getRequest(Class<T> clazz) {
 		return (T) requestMap.get(clazz);
+	}
+
+	@Override
+	protected void receiveData(ChannelHandlerContext ctx, String arg1) throws Exception {
+		System.out.println(arg1);
 	}
 }

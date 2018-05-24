@@ -2,7 +2,7 @@ package org.aimfd.world.planet.terrain.data;
 
 import java.util.Map;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 import org.aimfd.world.planet.terrain.data.unit.TerrainUnitData;
 
 public class TerrainDataCodec implements IDataCodec<String, String> {

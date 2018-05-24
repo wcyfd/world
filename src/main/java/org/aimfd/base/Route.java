@@ -17,10 +17,15 @@ public class Route {
 		channels[clientId] = null;
 	}
 
-	public static void send(int clientId, Object... objs) {
-		for (Object obj : objs) {
-
+	public static void send(int clientId, Object obj) {
+		Channel channel = channels[clientId];
+		if (channel == null || !channel.isActive()) {
+			return;
 		}
+
+		System.out.println(obj);
+		channel.writeAndFlush(obj);
+
 	}
 
 }

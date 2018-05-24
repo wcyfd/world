@@ -5,6 +5,7 @@ import java.util.concurrent.Future;
 
 import org.aimfd.base.ExecutorCenter;
 import org.aimfd.world.PlayerCache;
+import org.aimfd.world.handler.AccountHandler;
 import org.aimfd.world.player.Player;
 import org.aimfd.world.player.account.data.IAccountData;
 
@@ -19,6 +20,8 @@ public class LoginModule {
 	}
 
 	public void login(String account, String name, int age) {
+		AccountHandler.responseLogin(player.getClientId(), player.getPlayerAllData().getPeaceData());
+		
 		if (account == null || account.trim().equals("")) {
 			return;
 		}
@@ -47,6 +50,8 @@ public class LoginModule {
 
 				// 玩家上线处理
 				player.online();
+
+//				AccountHandler.responseLogin(player.getClientId(), player.getPlayerAllData().getPeaceData());
 			}
 
 		});

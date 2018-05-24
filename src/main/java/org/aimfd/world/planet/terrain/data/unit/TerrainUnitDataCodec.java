@@ -1,6 +1,6 @@
 package org.aimfd.world.planet.terrain.data.unit;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 
 public class TerrainUnitDataCodec implements IDataCodec<String, String> {
 

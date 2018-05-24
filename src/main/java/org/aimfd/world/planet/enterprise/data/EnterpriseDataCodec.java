@@ -2,7 +2,7 @@ package org.aimfd.world.planet.enterprise.data;
 
 import java.util.Map;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 import org.aimfd.world.planet.enterprise.data.unit.EnterpriseUnitData;
 
 public class EnterpriseDataCodec implements IDataCodec<String, String> {

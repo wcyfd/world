@@ -1,6 +1,6 @@
 package org.aimfd.world.planet.enterprise.data.unit;
 
-import org.aimfd.world.IData;
+import org.aimfd.base.IData;
 
 /**
  * 企业

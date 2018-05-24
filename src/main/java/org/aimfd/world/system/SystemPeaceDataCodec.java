@@ -1,6 +1,6 @@
 package org.aimfd.world.system;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 import org.aimfd.world.system.match.data.MatchData;
 import org.aimfd.world.system.room.data.RoomData;
 

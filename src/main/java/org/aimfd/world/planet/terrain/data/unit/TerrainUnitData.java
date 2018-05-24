@@ -3,7 +3,7 @@ package org.aimfd.world.planet.terrain.data.unit;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.aimfd.world.IData;
+import org.aimfd.base.IData;
 
 /**
  * 瓦片单元数据

@@ -1,6 +1,6 @@
 package org.aimfd.world.player.account.data;
 
-import org.aimfd.world.IData;
+import org.aimfd.base.IData;
 
 public class AccountData extends AccountDataCodec implements IData, IAccountData {
 

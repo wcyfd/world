@@ -3,7 +3,7 @@ package org.aimfd.world.planet.enterprise.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.aimfd.world.IData;
+import org.aimfd.base.IData;
 import org.aimfd.world.planet.enterprise.data.unit.EnterpriseUnitData;
 import org.aimfd.world.planet.enterprise.data.unit.IEnterpriseUnitData;
 

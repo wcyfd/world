@@ -1,7 +1,7 @@
 package org.aimfd.world.player.account.manager;
 
+import org.aimfd.base.IDBAPI;
 import org.aimfd.base.PlayerManagerRegistry;
-import org.aimfd.world.IDBAPI;
 import org.aimfd.world.player.PlayerManager;
 import org.aimfd.world.player.account.IAccountInternal;
 import org.aimfd.world.player.account.IAccountPublic;

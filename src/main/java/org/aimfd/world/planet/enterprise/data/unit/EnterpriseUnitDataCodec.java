@@ -1,6 +1,6 @@
 package org.aimfd.world.planet.enterprise.data.unit;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 
 public class EnterpriseUnitDataCodec implements IDataCodec<String, String> {
 

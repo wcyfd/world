@@ -1,6 +1,6 @@
 package org.aimfd.world.planet.environment.data;
 
-import org.aimfd.world.IData;
+import org.aimfd.base.IData;
 
 public class EnvironmentData extends EnvironmentDataCodec implements IEnvironmentData, IData {
 

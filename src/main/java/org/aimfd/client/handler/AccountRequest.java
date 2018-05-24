@@ -13,7 +13,7 @@ public class AccountRequest extends Request {
 
 	public void login(String account, String name, int age) {
 		JSONObject req = new JSONObject();
-		req.put("name", "login");
+		req.put("name", "requestLogin");
 
 		JSONObject param = new JSONObject();
 		param.put("account", account);
@@ -22,7 +22,6 @@ public class AccountRequest extends Request {
 
 		req.put("param", param);
 
-		System.out.println(req);
 		client.getChannel().writeAndFlush(req.toJSONString());
 	}
 }

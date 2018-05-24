@@ -1,6 +1,6 @@
 package org.aimfd.world.planet;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 import org.aimfd.world.planet.enterprise.data.EnterpriseData;
 import org.aimfd.world.planet.environment.data.EnvironmentData;
 import org.aimfd.world.planet.terrain.data.TerrainData;

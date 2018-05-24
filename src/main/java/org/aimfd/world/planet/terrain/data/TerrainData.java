@@ -2,7 +2,7 @@ package org.aimfd.world.planet.terrain.data;
 
 import java.util.HashMap;
 
-import org.aimfd.world.IData;
+import org.aimfd.base.IData;
 import org.aimfd.world.planet.terrain.data.unit.ITerrainUnitData;
 import org.aimfd.world.planet.terrain.data.unit.TerrainUnitData;
 

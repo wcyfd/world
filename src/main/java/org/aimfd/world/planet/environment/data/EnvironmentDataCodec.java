@@ -1,6 +1,6 @@
 package org.aimfd.world.planet.environment.data;
 
-import org.aimfd.world.IDataCodec;
+import org.aimfd.base.IDataCodec;
 
 public class EnvironmentDataCodec implements IDataCodec<String, String> {
 
