@@ -6,9 +6,9 @@ import org.aimfd.client.socketc.WorldRobot;
 public class ClientMain {
 
 	public static void main(String[] args) {
-		WorldRobot robot = new WorldRobot();
-		robot.start();
-
-		robot.getRequest(AccountRequest.class).login("wcy", "jor", 25);
+		WorldRobot robot = new WorldRobot("localhost", 8081);
+		robot.login();
+		
+		robot.getRequest(AccountRequest.class).login("wcy", "jor", 12);
 	}
 }

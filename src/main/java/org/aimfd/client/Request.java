@@ -1,12 +1,12 @@
 package org.aimfd.client;
 
-import org.aimfd.client.socketc.Client;
+import org.aimfd.client.socketc.Robot;
 
 public class Request {
 
-	protected Client client;
+	protected Robot robot;
 
-	public Request(Client client) {
-		this.client = client;
+	public Request(Robot robot) {
+		this.robot = robot;
 	}
 }

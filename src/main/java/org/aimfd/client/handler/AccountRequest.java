@@ -1,13 +1,13 @@
 package org.aimfd.client.handler;
 
 import org.aimfd.client.Request;
-import org.aimfd.client.socketc.Client;
+import org.aimfd.client.socketc.Robot;
 
 import com.alibaba.fastjson.JSONObject;
 
 public class AccountRequest extends Request {
 
-	public AccountRequest(Client client) {
+	public AccountRequest(Robot client) {
 		super(client);
 	}
 
@@ -22,6 +22,6 @@ public class AccountRequest extends Request {
 
 		req.put("param", param);
 
-		client.getChannel().writeAndFlush(req.toJSONString());
+		robot.send(req);
 	}
 }

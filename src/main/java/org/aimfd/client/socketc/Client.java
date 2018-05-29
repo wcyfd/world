@@ -1,6 +1,8 @@
 package org.aimfd.client.socketc;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -20,137 +22,109 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.util.AttributeKey;
 
-public class Client {
-
-	private final static AttributeKey<Integer> WRITER_IDLE_KEY = AttributeKey.<Integer>valueOf("WRITER_IDLE_KEY");
+public abstract class Client {
 
 	private EventLoopGroup eventLoopGroup;
 	private Bootstrap bootstrap;
 
 	private Channel channel;
+	private ExecutorService connectThread;
 
-	private int reconnectCount;
+	private String ip;
+	private int port;
+	private int maxReconnectCount;
 
-	private boolean isClose;
+	private volatile boolean connected = false;
+	private volatile boolean close = false;
 
-	public void start() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				connect();
-			}
-		}).start();
-
-		synchronized (this) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	private void connect() {
+	public Client(String ip, int port, int reconnectCount) {
+		this.ip = ip;
+		this.port = port;
+		this.maxReconnectCount = reconnectCount;
+		connectThread = Executors.newSingleThreadExecutor();
 
 		bootstrap = new Bootstrap();
 		eventLoopGroup = new NioEventLoopGroup();
 
-		try {
-			bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
+		bootstrap.option(ChannelOption.TCP_NODELAY, true);
+		bootstrap.option(ChannelOption.SO_REUSEADDR, true);
+		bootstrap.option(ChannelOption.SO_RCVBUF, 43690);// 43690为默认值
+		bootstrap.option(ChannelOption.TCP_NODELAY, true);
 
-				@Override
-				protected void initChannel(SocketChannel channel) throws Exception {
-					ChannelPipeline pipeline = channel.pipeline();
-					pipeline.addLast("decoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-					pipeline.addLast("stringdecoder", new StringDecoder());
-					// pipeline.addLast("idle", new IdleStateHandler(0, 6, 0));
+		bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
 
-					// pipeline.addLast("heart-handler", new HeartHandler());
+			@Override
+			protected void initChannel(SocketChannel channel) throws Exception {
+				ChannelPipeline pipeline = channel.pipeline();
+				pipeline.addLast("decoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+				pipeline.addLast("stringdecoder", new StringDecoder());
+				// pipeline.addLast("idle", new IdleStateHandler(0, 6, 0));
 
-					pipeline.addLast("client-handler", new ClientHandler());
+				// pipeline.addLast("heart-handler", new HeartHandler());
 
-					pipeline.addLast("encoder", new LengthFieldPrepender(4, false));
-					pipeline.addLast("stringencoder", new StringEncoder());
+				pipeline.addLast("client-handler", new ClientHandler());
 
-				}
-			}).option(ChannelOption.SO_KEEPALIVE, true);
+				pipeline.addLast("encoder", new LengthFieldPrepender(4, false));
+				pipeline.addLast("stringencoder", new StringEncoder());
 
-			while (!isClose) {
-				// 重连达到三次，直接断开
-				if (reconnectCount >= 3) {
-					isClose = true;
-				}
-
-				System.out.println("开始第" + reconnectCount + "次连接");
-				_connect();
 			}
-
-		} catch (Exception e) {
-			// e.printStackTrace();
-		} finally {
-			eventLoopGroup.shutdownGracefully();
-
-			System.out.println("客户端优雅关闭");
-			// 通知所有阻塞单元放开阻塞，服务器已经连接失败
-			synchronized (this) {
-				notifyAll();
-			}
-		}
+		}).option(ChannelOption.SO_KEEPALIVE, true);
 
 	}
 
-	private void _connect() {
-		try {
-			Thread.sleep(500);
-			// 停顿半秒，保证外部成功阻塞
-			ChannelFuture future = bootstrap.connect(new InetSocketAddress("localhost", 8081)).sync();
-			if (future.isSuccess()) {
-				System.out.println("客户端连接服务器成功");
-				reconnectCount = 0;
+	public boolean isConnected() {
+		return connected;
+	}
 
-				channel = future.channel();
-				synchronized (this) {
-					this.notifyAll();
+	protected void connect() {
+		close = false;
+		startConnectThread();
+	}
+
+	private void startConnectThread() {
+		connectThread.execute(new Runnable() {
+
+			@Override
+			public void run() {
+				int connectCount = 0;
+				while (!connected && connectCount <= maxReconnectCount) {
+					if (connectCount != 0) {
+						System.out.println("第" + connectCount + "次重连");
+					}
+					try {
+						ChannelFuture future = bootstrap.connect(new InetSocketAddress(ip, port)).sync();
+						if (future.isSuccess()) {
+							System.out.println("服务器连接成功");
+							channel = future.channel();
+							connected = true;
+						}
+					} catch (Exception e) {
+						connectCount++;
+					}
 				}
-				channel.closeFuture().sync();
+				if (!connected) {
+					reconnectFailed();
+				}
 			}
-		} catch (Exception e) {
-			System.out.println("连接服务器失败");
-			reconnectCount++;
-		}
 
+		});
+
+	}
+
+	protected Channel getChannel() {
+		return channel;
 	}
 
 	public void stopClient() {
-		isClose = true;
-		channel.close();
-
-	}
-
-	public Channel getChannel() {
-
-		// 如果通道关闭则等待重连
-		if (channel != null && !channel.isOpen()) {
-			synchronized (this) {
-				try {
-					wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return channel;
+		close = true;
+		eventLoopGroup.shutdownGracefully();
 	}
 
 	final class ClientHandler extends SimpleChannelInboundHandler<String> {
 		@Override
 		public void channelActive(ChannelHandlerContext ctx) throws Exception {
 			System.out.println("客户端开启连接");
-			reconnectCount = 0;
 		}
 
 		@Override
@@ -162,6 +136,12 @@ public class Client {
 		@Override
 		public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 			System.out.println("客户端断开连接");
+			// 如果不是主动关闭，则触发重连
+			connected = false;
+			if (!close) {
+				startConnectThread();
+			}
+
 		}
 
 		@Override
@@ -182,11 +162,10 @@ public class Client {
 		@Override
 		protected void channelRead0(ChannelHandlerContext ctx, String arg1) throws Exception {
 			if ("ping".equals(arg1)) {
-				ctx.channel().attr(WRITER_IDLE_KEY).set(0);
-				System.out.println("write pong");
+				// System.out.println("write pong");
 				ctx.channel().writeAndFlush("pong");
 			} else if ("pong".equals(arg1)) {
-				System.out.println("read pong");
+				// System.out.println("read pong");
 			} else {
 				ctx.fireChannelRead(arg1);
 			}
@@ -194,8 +173,7 @@ public class Client {
 
 	}
 
-	protected void receiveData(ChannelHandlerContext ctx, String arg1) throws Exception {
+	protected abstract void receiveData(ChannelHandlerContext ctx, String arg1) throws Exception;
 
-	}
-
+	protected abstract void reconnectFailed();
 }
