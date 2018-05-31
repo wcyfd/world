@@ -102,9 +102,9 @@ public abstract class Socket<T> extends SocketConfig {
 
 					});
 
-					ChannelFuture f = bootstrap.bind(getPort()).sync();
+					ChannelFuture f = bootstrap.bind(port).sync();
 
-					logger.info("game tcp serve start on {}", getPort());
+					logger.info("game tcp serve start on {}", port);
 					f.channel().closeFuture().sync();
 				} catch (InterruptedException e) {
 					logger.error("建立服务器SocketS失败{}", e);

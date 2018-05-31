@@ -7,8 +7,11 @@ import java.util.Map;
 
 import org.aimfd.base.LoggerPrefix;
 import org.aimfd.base.LoggerPrefixFactory;
-import org.aimfd.base.SpringContext;
+import org.aimfd.world.planet.enterprise.IEnterpriseInternal;
 import org.aimfd.world.planet.enterprise.IEnterprisePublic;
+import org.aimfd.world.planet.enterprise.manager.PlanetEnterpriseManager;
+import org.aimfd.world.planet.terrain.ITerrainPublic;
+import org.aimfd.world.planet.terrain.manager.PlanetTerrainManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +34,8 @@ public class Planet {
 
 		logger.setPrefix("planet" + planetId + ":");
 		logger.info("初始化成功");
+
+		registPlanetManagers();
 	}
 
 	public int getPlanetId() {
@@ -100,25 +105,24 @@ public class Planet {
 	/**
 	 * 注册星球的管理器
 	 */
-	public void registerPlanetManager() {
-		Map<String, Object> planetManagersTemplate = SpringContext.getContext().getBeansWithAnnotation(PlanetManagerRegistry.class);
-		for (Object manager : planetManagersTemplate.values()) {
-			PlanetManager planetManagerTemplate = (PlanetManager) manager;
-			Class<? extends PlanetManager> planetManagerClazz = planetManagerTemplate.getClass();
-			try {
-				PlanetManager planetManager = planetManagerClazz.newInstance();
-				planetManager.planet = this;
+	private void registPlanetManager(Class<? extends PlanetManager> clazz, Class<?>... interfaceClasses) {
+		try {
+			PlanetManager planetManager = clazz.newInstance();
+			planetManager.planet = this;
 
-				planetManagers.add(planetManager);
+			planetManagers.add(planetManager);
 
-				PlanetManagerRegistry planetAnnotation = planetManager.getClass().getAnnotation(PlanetManagerRegistry.class);
-				for (Class<?> planetManagerInterface : planetAnnotation.value()) {
-					planetInterfaceManagers.put(planetManagerInterface, planetManager);
-				}
-			} catch (InstantiationException | IllegalAccessException e) {
-				this.logger.error("初始化错误 ", e);
+			for (Class<?> planetManagerInterface : interfaceClasses) {
+				planetInterfaceManagers.put(planetManagerInterface, planetManager);
 			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			this.logger.error("初始化错误 ", e);
 		}
+	}
+
+	protected void registPlanetManagers() {
+		registPlanetManager(PlanetEnterpriseManager.class, IEnterprisePublic.class, IEnterpriseInternal.class);
+		registPlanetManager(PlanetTerrainManager.class, ITerrainPublic.class);
 	}
 
 	/**

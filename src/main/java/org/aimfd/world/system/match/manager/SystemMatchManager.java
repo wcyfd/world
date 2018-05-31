@@ -1,14 +1,10 @@
 package org.aimfd.world.system.match.manager;
 
-import org.aimfd.base.SystemManagerRegistry;
 import org.aimfd.world.system.SystemManager;
 import org.aimfd.world.system.match.IMatchPublic;
 import org.aimfd.world.system.match.manager.module.BeginMatchModule;
 import org.aimfd.world.system.match.manager.module.CancelMatchModule;
-import org.springframework.stereotype.Service;
 
-@Service
-@SystemManagerRegistry(IMatchPublic.class)
 public class SystemMatchManager extends SystemManager implements IMatchPublic {
 
 	private BeginMatchModule beginMatchModule;

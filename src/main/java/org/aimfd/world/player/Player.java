@@ -8,9 +8,13 @@ import java.util.Map;
 import org.aimfd.base.IDBAPI;
 import org.aimfd.base.LoggerPrefix;
 import org.aimfd.base.LoggerPrefixFactory;
-import org.aimfd.base.PlayerManagerRegistry;
 import org.aimfd.base.Route;
-import org.aimfd.base.SpringContext;
+import org.aimfd.world.player.account.IAccountInternal;
+import org.aimfd.world.player.account.IAccountPublic;
+import org.aimfd.world.player.account.manager.PlayerAccountManager;
+import org.aimfd.world.player.planet.IPlanetInternal;
+import org.aimfd.world.player.planet.IPlanetPublic;
+import org.aimfd.world.player.planet.manager.PlayerPlanetManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,26 +59,25 @@ public class Player {
 	 * 注册所有玩家的管理模块
 	 */
 	private void registPlayerManagers() {
-		Map<String, Object> playerManagerTemplates = SpringContext.getContext().getBeansWithAnnotation(PlayerManagerRegistry.class);
+		registPlayerManager(PlayerAccountManager.class, IAccountInternal.class, IAccountPublic.class);
+		registPlayerManager(PlayerPlanetManager.class, IPlanetInternal.class, IPlanetPublic.class);
+	}
 
-		for (Map.Entry<String, Object> entrySet : playerManagerTemplates.entrySet()) {
-			Class<?> playerManagerClazz = entrySet.getValue().getClass();
+	protected void registPlayerManager(Class<? extends PlayerManager> playerManagerClazz, Class<?>... interfaceClasses) {
+		try {
+			PlayerManager playerManager = playerManagerClazz.newInstance();
+			playerManager.player = this;
 
-			try {
-				PlayerManager playerManager = (PlayerManager) playerManagerClazz.newInstance();
-				playerManager.player = this;
+			playerManagers.add(playerManager);
 
-				PlayerManagerRegistry registry = playerManagerClazz.getAnnotation(PlayerManagerRegistry.class);
-				Class<?>[] classes = registry.value();
-
-				playerManagers.add(playerManager);
-
-				for (Class<?> clazz : classes) {
+			if (interfaceClasses != null) {
+				for (Class<?> clazz : interfaceClasses) {
 					playerInterfaces.put(clazz, playerManager);
 				}
-			} catch (InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
 			}
+
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 

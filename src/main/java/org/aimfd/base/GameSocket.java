@@ -8,21 +8,29 @@ import org.aimfd.world.player.Player;
 import io.netty.channel.Channel;
 
 public class GameSocket extends SocketCode {
-	private int maxPlayerCount;
 	private final LinkedBlockingQueue<Integer> clientIdQueue = new LinkedBlockingQueue<>();
-	private DispatchRequest dispatchRequest;
+	protected DispatchRequest dispatchRequest;
+	protected int maxCount;
 
 	public void setDispatchRequest(DispatchRequest dispatchRequest) {
 		this.dispatchRequest = dispatchRequest;
 	}
 
+	/**
+	 * 注册接口
+	 * 
+	 * @param clazz
+	 */
+	protected void registHandler(Class<?> clazz) {
+		dispatchRequest.registHandler(clazz);
+	}
+
 	@Override
 	protected void init() {
 		// 初始化最高承载的玩家容量
-		this.maxPlayerCount = 100;
 
 		// 添加可以使用的clientId队列
-		for (int i = 0; i < maxPlayerCount; i++) {
+		for (int i = 0; i < maxCount; i++) {
 			try {
 				clientIdQueue.put(i);
 			} catch (InterruptedException e) {
@@ -31,16 +39,12 @@ public class GameSocket extends SocketCode {
 		}
 
 		// 路由初始化
-		Route.init(maxPlayerCount);
+		Route.init(maxCount);
 	}
 
 	@Override
 	protected void initData() {
-		for (int clientId = 0; clientId < maxPlayerCount; clientId++) {
-			Player player = new Player(clientId);
-			player.init();
-			PlayerCache.addPlayer(player);
-		}
+
 	}
 
 	@Override

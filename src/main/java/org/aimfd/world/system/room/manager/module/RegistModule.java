@@ -1,6 +1,6 @@
 package org.aimfd.world.system.room.manager.module;
 
-import org.aimfd.world.system.ASystem;
+import org.aimfd.world.AData;
 import org.aimfd.world.system.room.data.IRoomData;
 
 public class RegistModule {
@@ -8,7 +8,7 @@ public class RegistModule {
 	private IRoomData roomData;
 
 	public RegistModule() {
-		roomData = ASystem.getSystemAlLData().getSystemPeaceData().getRoomData();
+		roomData = AData.getASystem().getSystemAllData().getSystemPeaceData().getRoomData();
 	}
 
 	public void regist(String account, int planetId) {

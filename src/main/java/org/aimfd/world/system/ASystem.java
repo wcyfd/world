@@ -1,56 +1,67 @@
 package org.aimfd.world.system;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.aimfd.base.SpringContext;
-import org.aimfd.base.SystemManagerRegistry;
+import org.aimfd.world.system.match.IMatchPublic;
+import org.aimfd.world.system.match.manager.SystemMatchManager;
+import org.aimfd.world.system.room.IRoomPublic;
+import org.aimfd.world.system.room.manager.SystemRoomManager;
 
 public class ASystem {
-	static {
-		_init();
-	}
 
-	private static SystemAllData systemAllData;
-	private static Map<Class<?>, SystemManager> systemInterfaces;
+	private SystemAllData systemAllData;
+	private Map<Class<?>, SystemManager> systemInterfaces;
+	private List<SystemManager> systemManagers;
 
-	private static void _init() {
+	public ASystem() {
 		systemAllData = new SystemAllData();
 		systemInterfaces = new HashMap<>();
-		
-		registManagers();
+		systemManagers = new ArrayList<>();
+
+		registSystemManagers();
 	}
 
-	private static void registManagers() {
-		Map<String, Object> systemManagerTemplates = SpringContext.getContext().getBeansWithAnnotation(SystemManagerRegistry.class);
-		for (Map.Entry<String, Object> entrySet : systemManagerTemplates.entrySet()) {
+	protected void registSystemManagers() {
+		registSystemManager(SystemMatchManager.class, IMatchPublic.class);
+		registSystemManager(SystemRoomManager.class, IRoomPublic.class);
+	}
 
-			SystemManager systemManager = (SystemManager) entrySet.getValue();
-			Class<?> systemManagerClazz = systemManager.getClass();
+	/**
+	 * 注册系统模块
+	 * 
+	 * @param systemManagerClazz
+	 * @param interfaceClasses
+	 */
+	protected void registSystemManager(Class<? extends SystemManager> systemManagerClazz, Class<?>... interfaceClasses) {
 
-			SystemManagerRegistry registry = systemManagerClazz.getAnnotation(SystemManagerRegistry.class);
-			Class<?>[] classes = registry.value();
+		try {
+			SystemManager systemManager = systemManagerClazz.newInstance();
+			systemManagers.add(systemManager);
 
-			for (Class<?> clazz : classes) {
+			for (Class<?> clazz : interfaceClasses) {
 				systemInterfaces.put(clazz, systemManager);
 			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
+
 	}
 
-	public static SystemAllData getSystemAlLData() {
+	public SystemAllData getSystemAllData() {
 		return systemAllData;
 	}
 
-	public static void init() {
-		Map<String, Object> systemManagerTemplates = SpringContext.getContext().getBeansWithAnnotation(SystemManagerRegistry.class);
-		for (Map.Entry<String, Object> entrySet : systemManagerTemplates.entrySet()) {
-			SystemManager systemManager = (SystemManager) entrySet.getValue();
+	public void init() {
+		for (SystemManager systemManager : systemManagers) {
 			systemManager.init();
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T extends SystemManager> T getSystemManager(Class<?> clazz) {
+	public <T extends SystemManager> T getSystemManager(Class<?> clazz) {
 		SystemManager systemManager = systemInterfaces.get(clazz);
 		return (T) systemManager;
 	}

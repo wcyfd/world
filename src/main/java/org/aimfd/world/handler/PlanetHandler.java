@@ -1,16 +1,12 @@
 package org.aimfd.world.handler;
 
 import org.aimfd.base.ClientRequest;
-import org.aimfd.base.Handler;
 import org.aimfd.base.Route;
 import org.aimfd.world.PlayerCache;
 import org.aimfd.world.planet.PlanetData;
-import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 
-@Service
-@Handler
 public class PlanetHandler {
 	@ClientRequest(alias = "getPlanetInfo")
 	public static void getPlanetInfo(int clientId) {

@@ -2,14 +2,14 @@ package org.aimfd.world.system.match.manager.module;
 
 import java.util.Set;
 
-import org.aimfd.world.system.ASystem;
+import org.aimfd.world.AData;
 import org.aimfd.world.system.match.data.IMatchData;
 
 public class CancelMatchModule {
 	private IMatchData matchData;
 
 	public CancelMatchModule() {
-		matchData = ASystem.getSystemAlLData().getSystemPeaceData().getMatchData();
+		matchData = AData.getASystem().getSystemAllData().getSystemPeaceData().getMatchData();
 	}
 
 	public void cancelMatch(String account) {
