@@ -17,12 +17,14 @@
 	</delete>
 
 	<!-- 查找帐号id -->
-	<select id="getIdByAccount" parameterType="java.lang.String">
+	<select id="findIdByAccount" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
 		SELECT c_id
 		FROM t_account
 		<where>
-			c_accont=#{account}
+			c_account=#{account}
 		</where>
+		LIMIT 1
 	</select>
 
 	<!-- 根据id查找 -->

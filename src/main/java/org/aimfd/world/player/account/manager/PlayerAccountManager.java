@@ -14,7 +14,7 @@ public class PlayerAccountManager extends PlayerManager implements IAccountPubli
 	@Override
 	public void init() {
 		accountDB = new AccountDB(player);
-		loginModule = new LoginModule(player);
+		loginModule = new LoginModule(player, accountDB);
 	}
 
 	@Override

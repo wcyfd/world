@@ -13,12 +13,13 @@ public class WorldGameSocket extends GameSocket {
 
 	public WorldGameSocket() {
 		super();
+		maxPlayerCount = 10;
+		maxPlanetCount = 5;
+		maxConnectionCount = maxPlayerCount;
 	}
 
 	@Override
 	protected void initData() {
-		maxPlayerCount = 10;
-		maxPlanetCount = 5;
 
 		AData.initPlayerData(maxPlayerCount);
 		AData.initSystemData();

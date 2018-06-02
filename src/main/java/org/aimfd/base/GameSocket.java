@@ -10,7 +10,7 @@ import io.netty.channel.Channel;
 public class GameSocket extends SocketCode {
 	private final LinkedBlockingQueue<Integer> clientIdQueue = new LinkedBlockingQueue<>();
 	protected DispatchRequest dispatchRequest;
-	protected int maxCount;
+	protected int maxConnectionCount;
 
 	public void setDispatchRequest(DispatchRequest dispatchRequest) {
 		this.dispatchRequest = dispatchRequest;
@@ -30,7 +30,7 @@ public class GameSocket extends SocketCode {
 		// 初始化最高承载的玩家容量
 
 		// 添加可以使用的clientId队列
-		for (int i = 0; i < maxCount; i++) {
+		for (int i = 0; i < maxConnectionCount; i++) {
 			try {
 				clientIdQueue.put(i);
 			} catch (InterruptedException e) {
@@ -39,7 +39,7 @@ public class GameSocket extends SocketCode {
 		}
 
 		// 路由初始化
-		Route.init(maxCount);
+		Route.init(maxConnectionCount);
 	}
 
 	@Override

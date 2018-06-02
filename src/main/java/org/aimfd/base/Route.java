@@ -1,5 +1,8 @@
 package org.aimfd.base;
 
+import org.aimfd.world.PlayerCache;
+import org.slf4j.Logger;
+
 import io.netty.channel.Channel;
 
 public class Route {
@@ -23,7 +26,9 @@ public class Route {
 			return;
 		}
 
-		System.out.println(obj);
+		Logger logger = PlayerCache.getPlayerByClientId(clientId).getLogger();
+
+		logger.info("{}", obj);
 		channel.writeAndFlush(obj);
 
 	}

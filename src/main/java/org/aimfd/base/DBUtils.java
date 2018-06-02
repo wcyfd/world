@@ -79,4 +79,8 @@ public class DBUtils {
 
 	}
 
+	public static <TABLE> void insertTable(TABLE table) {
+
+	}
+
 }

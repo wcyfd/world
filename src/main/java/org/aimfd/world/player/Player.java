@@ -96,13 +96,13 @@ public class Player {
 
 	public void init() {
 		// 玩家管理器初始化
-		for (PlayerManager playerManager : playerInterfaces.values()) {
+		for (PlayerManager playerManager : playerManagers) {
 			playerManager.init();
 		}
 	}
 
 	public void dbCreate() {
-		for (PlayerManager playerManager : playerInterfaces.values()) {
+		for (PlayerManager playerManager : playerManagers) {
 			if (playerManager instanceof IDBAPI) {
 				((IDBAPI) playerManager).dbCreate();
 			}
@@ -110,7 +110,7 @@ public class Player {
 	}
 
 	public void dbSave() {
-		for (PlayerManager playerManager : playerInterfaces.values()) {
+		for (PlayerManager playerManager : playerManagers) {
 			if (playerManager instanceof IDBAPI) {
 				((IDBAPI) playerManager).dbSave();
 			}
@@ -118,7 +118,7 @@ public class Player {
 	}
 
 	public void dbLoad() {
-		for (PlayerManager playerManager : playerInterfaces.values()) {
+		for (PlayerManager playerManager : playerManagers) {
 			if (playerManager instanceof IDBAPI) {
 				((IDBAPI) playerManager).dbLoad();
 			}
@@ -126,13 +126,13 @@ public class Player {
 	}
 
 	public void online() {
-		for (PlayerManager playerManager : playerInterfaces.values()) {
+		for (PlayerManager playerManager : playerManagers) {
 			playerManager.online();
 		}
 	}
 
 	public void offline() {
-		for (PlayerManager playerManager : playerInterfaces.values()) {
+		for (PlayerManager playerManager : playerManagers) {
 			playerManager.offline();
 		}
 

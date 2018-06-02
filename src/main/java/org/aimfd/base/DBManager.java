@@ -173,9 +173,13 @@ public class DBManager {
 	 * @param sourceTable
 	 * @param targetTable
 	 */
-	public static <TABLE extends AbstractTable> void saveTable(TABLE sourceTable, TABLE targetTable) {
+	public static <TABLE extends AbstractTable> void insertTable(TABLE targetTable) {
+		
+	}
+
+	public static <TABLE extends AbstractTable> void refreshTable(TABLE sourceTable, TABLE targetTable) {
 		if (DBUtils.needSaveData(sourceTable, targetTable)) {
-			
+
 		}
 	}
 
