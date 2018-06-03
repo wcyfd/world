@@ -174,7 +174,7 @@ public class DBManager {
 	 * @param targetTable
 	 */
 	public static <TABLE extends AbstractTable> void insertTable(TABLE targetTable) {
-		
+
 	}
 
 	public static <TABLE extends AbstractTable> void refreshTable(TABLE sourceTable, TABLE targetTable) {
@@ -182,5 +182,6 @@ public class DBManager {
 
 		}
 	}
+	
 
 }

@@ -12,7 +12,7 @@
 	<delete id="delete">
 		DELETE FROM t_account
 		<where>
-			c_id=#{accountId}
+			c_id=#{id}
 		</where>
 	</delete>
 
@@ -37,7 +37,7 @@
 		FROM
 		t_account
 		<where>
-			c_id=#{accountId}
+			c_id=#{id}
 		</where>
 	</select>
 
@@ -75,9 +75,9 @@
 		UPDATE t_account
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="account!=null">c_account=#{account},</if>
-			<if test="place!=null">c_name=#{name},</if>
+			<if test="name!=null">c_name=#{name},</if>
 		</trim>
-		<where>c_id=#{accountId}</where>
+		<where>c_id=#{id}</where>
 	</update>
 
 </mapper>
