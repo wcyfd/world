@@ -34,6 +34,7 @@ public abstract class Client {
 	private String ip;
 	private int port;
 	private int maxReconnectCount;
+	private boolean firstConnect;
 
 	private volatile boolean connected = false;
 	private volatile boolean close = false;
@@ -42,6 +43,7 @@ public abstract class Client {
 		this.ip = ip;
 		this.port = port;
 		this.maxReconnectCount = reconnectCount;
+		this.firstConnect = true;
 		connectThread = Executors.newSingleThreadExecutor();
 
 		bootstrap = new Bootstrap();
@@ -88,7 +90,8 @@ public abstract class Client {
 			@Override
 			public void run() {
 				int connectCount = 0;
-				while (!connected && connectCount <= maxReconnectCount) {
+				while (firstConnect || (!connected && connectCount < maxReconnectCount)) {
+					firstConnect = false;
 					if (connectCount != 0) {
 						System.out.println("第" + connectCount + "次重连");
 					}

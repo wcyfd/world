@@ -4,7 +4,7 @@ import org.aimfd.client.handler.AccountRequest;
 
 public class WorldRobot extends Robot {
 	public WorldRobot(String ip, int port) {
-		super(ip, port, 3);
+		super(ip, port, 0);
 		registRequest(AccountRequest.class);
 	}
 
