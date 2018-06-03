@@ -25,4 +25,10 @@ public class PlayerManager {
 
 	}
 
+	/**
+	 * 重置数据
+	 */
+	public void resetData() {
+
+	}
 }

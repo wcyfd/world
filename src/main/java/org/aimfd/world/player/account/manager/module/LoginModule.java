@@ -1,15 +1,17 @@
 package org.aimfd.world.player.account.manager.module;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
 import org.aimfd.base.ExecutorCenter;
+import org.aimfd.base.GameSocket;
+import org.aimfd.base.Route;
 import org.aimfd.world.PlayerCache;
 import org.aimfd.world.handler.AccountHandler;
 import org.aimfd.world.player.Player;
 import org.aimfd.world.player.account.data.IAccountData;
 import org.aimfd.world.player.account.db.AccountDB;
 import org.slf4j.Logger;
+
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelPromise;
 
 public class LoginModule {
 
@@ -39,18 +41,19 @@ public class LoginModule {
 				if (!accountDB.checkAccount(account)) {
 					// 账号创建
 					player.setAccount(account);
-					accountData.setAccount(account);
 					accountData.setName(name);
+					accountData.setAccount(account);
+
 					player.initLogger();
 
 					player.dbCreate();
 				} else {
-					// 已有账号
-					logger.debug("顶号处理:{}", player.getAccount());
+
 					// 已经登录就把登陆的下线
 					offline(account);
 					// 如果账号存在则加载
 					player.setAccount(account);
+					player.initLogger();
 					player.dbLoad();
 				}
 
@@ -64,26 +67,27 @@ public class LoginModule {
 	}
 
 	private void offline(String account) {
-		// 使用逻辑线程将玩家下线
-		Future<?> future = ExecutorCenter.logicExecutor.submit(account.hashCode(), new Runnable() {
 
-			@Override
-			public void run() {
-				// 获取已经上线的位置
-				Player player = PlayerCache.getPlayerByAccount(account);
-				if (player != null) {
-					logger.debug("原玩家下线，clientId={}", player.getClientId());
-					player.offline();
-				}
-			}
-
-		});
-
-		try {
-			future.get();
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
+		Player player = PlayerCache.getPlayerByAccount(account);
+		if (player == null) {
+			return;
 		}
+
+		// 已有账号
+		logger.info("顶号处理:{}", player.getAccount());
+
+		Channel channel = Route.getChannel(player.getClientId());
+
+		ChannelPromise promise = channel.newPromise();
+		channel.attr(GameSocket.CHANNEL_PROMISE_KEY).set(promise);
+		try {
+			channel.close(promise);
+		} catch (Exception e) {
+			player.getLogger().error("断开异常", e);
+		} finally {
+			channel.attr(GameSocket.CHANNEL_PROMISE_KEY).set(null);
+		}
+
 	}
 
 }

@@ -38,7 +38,7 @@ public abstract class Socket<T> extends SocketConfig {
 	public static final AttributeKey<Integer> CLIENT_ID_KEY = AttributeKey.valueOf("CLIENT_ID_KEY");
 	/** 通讯通道源 */
 	public static final AttributeKey<String> SERVER_NAME = AttributeKey.valueOf("SERVER_NAME");
-
+	
 	/** NettyIO事件循环处理对象：boss线程 */
 	private EventLoopGroup bossGroup;
 

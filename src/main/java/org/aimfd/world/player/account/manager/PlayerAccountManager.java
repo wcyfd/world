@@ -37,4 +37,9 @@ public class PlayerAccountManager extends PlayerManager implements IAccountPubli
 		loginModule.login(account, name, age);
 	}
 
+	@Override
+	public void resetData() {
+		accountDB.resetData();
+	}
+
 }

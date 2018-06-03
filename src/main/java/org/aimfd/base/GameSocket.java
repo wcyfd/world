@@ -6,8 +6,11 @@ import org.aimfd.world.PlayerCache;
 import org.aimfd.world.player.Player;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelPromise;
+import io.netty.util.AttributeKey;
 
 public class GameSocket extends SocketCode {
+	public static final AttributeKey<ChannelPromise> CHANNEL_PROMISE_KEY = AttributeKey.valueOf("CHANNEL_PROMISE_KEY");
 	private final LinkedBlockingQueue<Integer> clientIdQueue = new LinkedBlockingQueue<>();
 	protected DispatchRequest dispatchRequest;
 	protected int maxConnectionCount;
@@ -49,6 +52,7 @@ public class GameSocket extends SocketCode {
 
 	@Override
 	protected void initSpecial() {
+
 	}
 
 	@Override
@@ -80,15 +84,39 @@ public class GameSocket extends SocketCode {
 
 	@Override
 	public void myServerDisconnect(Channel channel, String serverName) {
-
+		Integer clientID = channel.attr(CLIENT_ID_KEY).get();
+		disconnect(clientID);
 	}
 
 	@Override
 	public void myServerDisconnect(Integer clientID, String serverName) {
+		disconnect(clientID);
+	}
+
+	private void disconnect(Integer clientID) {
+		// 空则返回
+		if (clientID == null)
+			return;
+		// 超出范围则返回
+		if (clientID < 0 || clientID >= maxConnectionCount)
+			return;
+
 		Player player = PlayerCache.getPlayerByClientId(clientID);
 
+		player.getLogger().info("玩家下线");
+		player.offline();// 玩家下线
+
+		Channel channel = Route.getChannel(clientID);
+
+		ChannelPromise promise = channel.attr(CHANNEL_PROMISE_KEY).get();
+		if (promise != null) {
+			promise.setSuccess();
+		}
+
+		player.getLogger().info("玩家数据保存");
 		player.dbSave();// 玩家数据保存
-		player.resetData();// 数据清空
+		player.getLogger().info("玩家数据开始清空");
+		player.resetData();// 玩家数据清空
 
 		clientIdQueue.add(clientID);// id归还
 	}

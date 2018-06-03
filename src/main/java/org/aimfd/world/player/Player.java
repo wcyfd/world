@@ -48,7 +48,8 @@ public class Player {
 	}
 
 	public void initLogger() {
-		logger.setPrefix("[" + clientId + ":" + account + "]");
+		logger.setPrefix("[" + account + "]:[" + clientId + "]");
+		logger.info("init logger");
 	}
 
 	public Logger getLogger() {
@@ -107,6 +108,7 @@ public class Player {
 				((IDBAPI) playerManager).dbCreate();
 			}
 		}
+		logger.info("玩家创建完成");
 	}
 
 	public void dbSave() {
@@ -115,6 +117,7 @@ public class Player {
 				((IDBAPI) playerManager).dbSave();
 			}
 		}
+		logger.info("数据保存完毕");
 	}
 
 	public void dbLoad() {
@@ -123,35 +126,54 @@ public class Player {
 				((IDBAPI) playerManager).dbLoad();
 			}
 		}
+
+		logger.info("数据加载完成");
 	}
 
 	public void online() {
 		for (PlayerManager playerManager : playerManagers) {
 			playerManager.online();
 		}
+		isLogin = true;
+		logger.info("玩家上线完成");
 	}
 
+	/**
+	 * 数据保存，数据清空
+	 */
 	public void offline() {
+		// 下线操作
 		for (PlayerManager playerManager : playerManagers) {
 			playerManager.offline();
 		}
-
-		this.resetData();
+		isLogin = false;
+		logger.info("玩家下线完成");
 	}
 
+	/**
+	 * 重置数据
+	 */
 	public void resetData() {
+		// 管理器临时数据重置
+		for (PlayerManager playerManager : playerManagers) {
+			playerManager.resetData();
+		}
+
+		// 玩家静态数据清空
+		playerAllData.resetData();
+
+		logger.info("数据清空完成");
+
 		account = null;// 帐号重置
-		logger.setPrefix(null);
-		playerAllData.resetData();// 重置数据
+		logger.info("clear logger");
+		logger.setPrefix(null);// 重置日志工具
+
 		Route.resetChannel(clientId);// 重置通信通道
+		logger.info("最后清空完成");
 	}
 
 	public boolean isLogin() {
 		return isLogin;
-	}
-
-	public void setLogin(boolean isLogin) {
-		this.isLogin = isLogin;
 	}
 
 	public String getAccount() {

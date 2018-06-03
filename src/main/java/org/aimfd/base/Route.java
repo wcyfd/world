@@ -30,7 +30,9 @@ public class Route {
 
 		logger.info("{}", obj);
 		channel.writeAndFlush(obj);
-
 	}
 
+	public static Channel getChannel(int clientId) {
+		return channels[clientId];
+	}
 }
