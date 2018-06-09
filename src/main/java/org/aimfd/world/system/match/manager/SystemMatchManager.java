@@ -1,11 +1,11 @@
 package org.aimfd.world.system.match.manager;
 
 import org.aimfd.world.system.SystemManager;
-import org.aimfd.world.system.match.IMatchPublic;
+import org.aimfd.world.system.match.ISystemMatchPublic;
 import org.aimfd.world.system.match.manager.module.BeginMatchModule;
 import org.aimfd.world.system.match.manager.module.CancelMatchModule;
 
-public class SystemMatchManager extends SystemManager implements IMatchPublic {
+public class SystemMatchManager extends SystemManager implements ISystemMatchPublic {
 
 	private BeginMatchModule beginMatchModule;
 	private CancelMatchModule cancelMatchModule;

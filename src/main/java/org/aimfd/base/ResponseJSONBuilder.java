@@ -8,6 +8,7 @@ public class ResponseJSONBuilder {
 	 * 
 	 * @param responseName
 	 * @param params
+	 *            传入的参数必须是一个参数名（String），一个参数值(Object)
 	 */
 	public static String build(String responseName, Object... params) {
 		JSONObject json = new JSONObject();

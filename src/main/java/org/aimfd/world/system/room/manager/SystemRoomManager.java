@@ -1,11 +1,11 @@
 package org.aimfd.world.system.room.manager;
 
 import org.aimfd.world.system.SystemManager;
-import org.aimfd.world.system.room.IRoomPublic;
+import org.aimfd.world.system.room.ISystemRoomPublic;
 import org.aimfd.world.system.room.manager.module.RegistModule;
 import org.aimfd.world.system.room.manager.module.UnRegistModule;
 
-public class SystemRoomManager extends SystemManager implements IRoomPublic {
+public class SystemRoomManager extends SystemManager implements ISystemRoomPublic {
 
 	private RegistModule registModule;
 	private UnRegistModule unRegistModule;

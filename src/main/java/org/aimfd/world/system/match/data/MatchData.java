@@ -1,17 +1,36 @@
 package org.aimfd.world.system.match.data;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class MatchData extends MatchDataCodec implements IMatchData {
 
 	public MatchData() {
-		accountSet = new HashSet<>();
+		accountQueue = new LinkedList<>();
 	}
 
 	@Override
-	public Set<String> getAccountSet() {
-		return accountSet;
+	public boolean contains(String account) {
+		return accountQueue.contains(account);
+	}
+
+	@Override
+	public void addAccount(String account) {
+		accountQueue.add(account);
+	}
+
+	@Override
+	public void removeAccount(String account) {
+		accountQueue.remove(account);
+	}
+
+	@Override
+	public int getQueueLength() {
+		return accountQueue.size();
+	}
+
+	@Override
+	public String poll() {
+		return accountQueue.poll();
 	}
 
 }

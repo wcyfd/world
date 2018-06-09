@@ -1,5 +1,7 @@
 package org.aimfd.world.planet.enterprise;
 
+import java.util.List;
+
 /**
  * 企业接口
  * 
@@ -7,10 +9,11 @@ package org.aimfd.world.planet.enterprise;
  *
  */
 public interface IEnterpriseInternal {
+
 	/**
-	 * 初始化企业的数量
+	 * 设置企业
 	 * 
-	 * @param count
+	 * @param accounts
 	 */
-	void initEnterpriseCount(int count);
+	void setEnterprises(List<String> accounts);
 }

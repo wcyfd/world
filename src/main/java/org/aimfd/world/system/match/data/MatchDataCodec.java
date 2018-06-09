@@ -1,24 +1,25 @@
 package org.aimfd.world.system.match.data;
 
-import java.util.Set;
+import java.util.Queue;
 
 import org.aimfd.base.IDataJSONCodec;
 
 import com.alibaba.fastjson.JSONObject;
 
 public class MatchDataCodec implements IDataJSONCodec {
-	protected Set<String> accountSet;
+	protected Queue<String> accountQueue;
 
 	@Override
 	public JSONObject encode() {
 		JSONObject json = new JSONObject();
-		json.put("accountSet", accountSet);
+		json.put("accountQueue", accountQueue);
 		return json;
 	}
 
 	@Override
 	public void decode(JSONObject source) {
-		accountSet.addAll(source.getJSONArray("accountSet").toJavaList(String.class));
+		accountQueue.clear();
+		accountQueue.addAll(source.getJSONArray("accountQueue").toJavaList(String.class));
 	}
 
 }

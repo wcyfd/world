@@ -1,5 +1,7 @@
 package org.aimfd.base;
 
+import java.util.List;
+
 import org.aimfd.world.PlayerCache;
 import org.slf4j.Logger;
 
@@ -20,6 +22,12 @@ public class Route {
 		channels[clientId] = null;
 	}
 
+	/**
+	 * 发送给一个人
+	 * 
+	 * @param clientId
+	 * @param obj
+	 */
 	public static void send(int clientId, Object obj) {
 		Channel channel = channels[clientId];
 		if (channel == null || !channel.isActive()) {
@@ -32,7 +40,17 @@ public class Route {
 		channel.writeAndFlush(obj);
 	}
 
+	/**
+	 * 群发消息
+	 */
+	public static void sendMass(List<Integer> clientIds, Object obj) {
+		for (int clientId : clientIds) {
+			send(clientId, obj);
+		}
+	}
+
 	public static Channel getChannel(int clientId) {
 		return channels[clientId];
 	}
+
 }

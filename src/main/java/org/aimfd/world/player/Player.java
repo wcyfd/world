@@ -12,6 +12,8 @@ import org.aimfd.base.Route;
 import org.aimfd.world.player.account.IAccountInternal;
 import org.aimfd.world.player.account.IAccountPublic;
 import org.aimfd.world.player.account.manager.PlayerAccountManager;
+import org.aimfd.world.player.match.IMatchPublic;
+import org.aimfd.world.player.match.manager.PlayerMatchManager;
 import org.aimfd.world.player.planet.IPlanetInternal;
 import org.aimfd.world.player.planet.IPlanetPublic;
 import org.aimfd.world.player.planet.manager.PlayerPlanetManager;
@@ -34,13 +36,12 @@ public class Player {
 	private List<PlayerManager> playerManagers = new ArrayList<>();
 
 	public Player(int clientId) {
-		logger = LoggerPrefixFactory.getLogger(Player.class);
+		logger = LoggerPrefixFactory.getLogger(this.getClass());
 		this.clientId = clientId;
 		this.playerAllData = new PlayerAllData();
 
 		initLogger();
 		registPlayerManagers();
-		logger.info("初始化玩家容器完毕");
 	}
 
 	public void initPlayer(Channel channel) {
@@ -49,7 +50,6 @@ public class Player {
 
 	public void initLogger() {
 		logger.setPrefix("[" + account + "]:[" + clientId + "]");
-		logger.info("init logger");
 	}
 
 	public Logger getLogger() {
@@ -62,6 +62,7 @@ public class Player {
 	private void registPlayerManagers() {
 		registPlayerManager(PlayerAccountManager.class, IAccountInternal.class, IAccountPublic.class);
 		registPlayerManager(PlayerPlanetManager.class, IPlanetInternal.class, IPlanetPublic.class);
+		registPlayerManager(PlayerMatchManager.class, IMatchPublic.class);
 	}
 
 	protected void registPlayerManager(Class<? extends PlayerManager> playerManagerClazz, Class<?>... interfaceClasses) {

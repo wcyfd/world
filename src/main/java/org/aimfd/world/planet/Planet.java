@@ -32,9 +32,6 @@ public class Planet {
 		this.planetAllData = new PlanetAllData();
 		this.logger = LoggerPrefixFactory.getLogger(Planet.class);
 
-		logger.setPrefix("planet" + planetId + ":");
-		logger.info("初始化成功");
-
 		registPlanetManagers();
 	}
 
@@ -61,15 +58,6 @@ public class Planet {
 	}
 
 	/**
-	 * 初始化游戏
-	 * 
-	 * @param enterpriseCount
-	 */
-	public void initPlanet(int enterpriseCount) {
-		this.getPlanetManagerInterface(IEnterprisePublic.class).initEnterpriseCount(enterpriseCount);
-	}
-
-	/**
 	 * 初始化
 	 */
 	public void init() {
@@ -78,27 +66,24 @@ public class Planet {
 		}
 	}
 
+	/**
+	 * 模块初始化时的统一操作
+	 */
 	public void start() {
 		for (PlanetManager planetManager : planetManagers) {
 			planetManager.onStart();
 		}
 	}
 
-	public void enter() {
+	public void end() {
 		for (PlanetManager planetManager : planetManagers) {
-			planetManager.onEnter();
-		}
-	}
-
-	public void exit() {
-		for (PlanetManager planetManager : planetManagers) {
-			planetManager.onExit();
+			planetManager.onEnd();
 		}
 	}
 
 	public void update() {
 		for (PlanetManager planetManager : planetManagers) {
-			planetManager.update();
+			planetManager.onUpdate();
 		}
 	}
 

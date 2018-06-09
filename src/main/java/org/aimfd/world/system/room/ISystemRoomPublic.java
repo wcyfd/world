@@ -6,7 +6,7 @@ package org.aimfd.world.system.room;
  * @author AIM
  *
  */
-public interface IRoomPublic {
+public interface ISystemRoomPublic {
 
 	/**
 	 * 注册

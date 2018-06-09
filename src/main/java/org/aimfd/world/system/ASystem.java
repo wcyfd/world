@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.aimfd.world.system.match.IMatchPublic;
+import org.aimfd.world.system.match.ISystemMatchPublic;
 import org.aimfd.world.system.match.manager.SystemMatchManager;
-import org.aimfd.world.system.room.IRoomPublic;
+import org.aimfd.world.system.room.ISystemRoomPublic;
 import org.aimfd.world.system.room.manager.SystemRoomManager;
 
 public class ASystem {
@@ -25,8 +25,8 @@ public class ASystem {
 	}
 
 	protected void registSystemManagers() {
-		registSystemManager(SystemMatchManager.class, IMatchPublic.class);
-		registSystemManager(SystemRoomManager.class, IRoomPublic.class);
+		registSystemManager(SystemMatchManager.class, ISystemMatchPublic.class);
+		registSystemManager(SystemRoomManager.class, ISystemRoomPublic.class);
 	}
 
 	/**
@@ -43,6 +43,7 @@ public class ASystem {
 
 			for (Class<?> clazz : interfaceClasses) {
 				systemInterfaces.put(clazz, systemManager);
+				SystemICenter.registInterface(clazz, systemManager);
 			}
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();

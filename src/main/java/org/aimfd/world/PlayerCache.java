@@ -11,6 +11,7 @@ public class PlayerCache {
 	public static void addPlayer(Player player) {
 		int clientId = player.getClientId();
 		playerCache.put(clientId, player);
+		PlayerICenter.registPlayer(player);
 	}
 
 	public static Player getPlayerByClientId(Integer clientId) {

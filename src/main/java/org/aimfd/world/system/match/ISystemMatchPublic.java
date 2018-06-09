@@ -1,6 +1,6 @@
 package org.aimfd.world.system.match;
 
-public interface IMatchPublic {
+public interface ISystemMatchPublic {
 	/**
 	 * 开始匹配
 	 * 
