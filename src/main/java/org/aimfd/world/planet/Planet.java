@@ -10,6 +10,8 @@ import org.aimfd.base.LoggerPrefixFactory;
 import org.aimfd.world.planet.enterprise.IEnterpriseInternal;
 import org.aimfd.world.planet.enterprise.IEnterprisePublic;
 import org.aimfd.world.planet.enterprise.manager.PlanetEnterpriseManager;
+import org.aimfd.world.planet.environment.IEnvironmentPublic;
+import org.aimfd.world.planet.environment.manager.PlanetEnvironmentManager;
 import org.aimfd.world.planet.terrain.ITerrainPublic;
 import org.aimfd.world.planet.terrain.manager.PlanetTerrainManager;
 import org.slf4j.Logger;
@@ -108,6 +110,7 @@ public class Planet {
 	protected void registPlanetManagers() {
 		registPlanetManager(PlanetEnterpriseManager.class, IEnterprisePublic.class, IEnterpriseInternal.class);
 		registPlanetManager(PlanetTerrainManager.class, ITerrainPublic.class);
+		registPlanetManager(PlanetEnvironmentManager.class, IEnvironmentPublic.class);
 	}
 
 	/**
