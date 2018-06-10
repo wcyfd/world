@@ -15,5 +15,12 @@ public interface IEnterpriseInternal {
 	 * 
 	 * @param accounts
 	 */
-	void setEnterprises(List<String> accounts);
+	void applyEnterprises(List<String> accounts);
+
+	/**
+	 * 获取玩家客户端id
+	 * 
+	 * @return
+	 */
+	List<Integer> getClientIds();
 }

@@ -16,41 +16,40 @@ import org.aimfd.world.planet.enterprise.data.unit.IEnterpriseUnitData;
 public class EnterpriseData extends EnterpriseDataCodec implements IData, IEnterpriseData {
 
 	public EnterpriseData() {
-		this.enterpriseAccountMap = new HashMap<>();
-		this.enterpriseUnitDataMap = new HashMap<>();
+		this.accountMap = new HashMap<>();
+		this.unitDataMap = new HashMap<>();
 		for (int id = 0; id < 5; id++) {
 			EnterpriseUnitData unitData = new EnterpriseUnitData(id);
-			this.enterpriseUnitDataMap.put(id, unitData);
+			this.unitDataMap.put(id, unitData);
 		}
 	}
 
 	@Override
-	public void setEnterpriseCount(int enterpriseCount) {
-		this.enterpriseCount = enterpriseCount;
-	}
-
-	@Override
 	public IEnterpriseUnitData getEnterpriseUnitData(int id) {
-		return this.enterpriseUnitDataMap.get(id);
-	}
-
-	@Override
-	public int getEnterpriseCount() {
-		return enterpriseCount;
+		return this.unitDataMap.get(id);
 	}
 
 	@Override
 	public IEnterpriseUnitData getEnterpriseUnitData(String account) {
-		int id = this.enterpriseAccountMap.get(account);
-		return this.enterpriseUnitDataMap.get(id);
+		int id = this.accountMap.get(account);
+		return this.unitDataMap.get(id);
+	}
+
+	@Override
+	public Map<Integer, IEnterpriseUnitData> getUnitData() {
+		return unitDataMap;
+	}
+
+	@Override
+	public Map<String, Integer> getAccounts() {
+		return accountMap;
 	}
 
 	@Override
 	public void resetData() {
-		this.enterpriseAccountMap.clear();
-		this.enterpriseCount = -1;
-		for (Map.Entry<Integer, EnterpriseUnitData> entrySet : this.enterpriseUnitDataMap.entrySet()) {
-			EnterpriseUnitData unitData = entrySet.getValue();
+		this.accountMap.clear();
+		for (Map.Entry<Integer, IEnterpriseUnitData> entrySet : this.unitDataMap.entrySet()) {
+			EnterpriseUnitData unitData = (EnterpriseUnitData) entrySet.getValue();
 			unitData.resetData();
 		}
 	}

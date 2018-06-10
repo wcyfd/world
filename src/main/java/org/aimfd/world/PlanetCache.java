@@ -20,12 +20,12 @@ public class PlanetCache {
 		return planetMap.get(planetId);
 	}
 
-	public static Planet getIdlePlanet() {
+	public static Planet borrowPlanet() {
 		int planetId = idlePlanetQueue.poll();
 		return planetMap.get(planetId);
 	}
 
-	public static void releasePlanet(Planet planet) {
+	public static void returnPlanet(Planet planet) {
 		if (!idlePlanetQueue.contains(planet.getPlanetId())) {
 			idlePlanetQueue.add(planet.getPlanetId());
 		}

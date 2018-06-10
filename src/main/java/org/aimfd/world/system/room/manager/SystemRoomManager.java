@@ -5,6 +5,12 @@ import org.aimfd.world.system.room.ISystemRoomPublic;
 import org.aimfd.world.system.room.manager.module.RegistModule;
 import org.aimfd.world.system.room.manager.module.UnRegistModule;
 
+/**
+ * 房间管理器
+ * 
+ * @author AIM
+ *
+ */
 public class SystemRoomManager extends SystemManager implements ISystemRoomPublic {
 
 	private RegistModule registModule;

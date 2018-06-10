@@ -7,4 +7,8 @@ public class SystemManager {
 
 	}
 
+	protected void update() {
+
+	}
+
 }

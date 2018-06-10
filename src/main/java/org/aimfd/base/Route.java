@@ -1,6 +1,6 @@
 package org.aimfd.base;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.aimfd.world.PlayerCache;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class Route {
 	/**
 	 * 群发消息
 	 */
-	public static void sendMass(List<Integer> clientIds, Object obj) {
+	public static void sendMass(Collection<Integer> clientIds, Object obj) {
 		for (int clientId : clientIds) {
 			send(clientId, obj);
 		}
