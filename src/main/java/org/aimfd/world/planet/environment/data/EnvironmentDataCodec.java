@@ -1,20 +1,26 @@
 package org.aimfd.world.planet.environment.data;
 
-import org.aimfd.base.IDataCodec;
+import org.aimfd.base.IDataJSONCodec;
 
-public class EnvironmentDataCodec implements IDataCodec<String, String> {
+import com.alibaba.fastjson.JSONObject;
+
+public class EnvironmentDataCodec implements IDataJSONCodec {
 
 	protected int oxygen;
 	protected int temperature;
 
 	@Override
-	public String encode() {
-		return null;
+	public JSONObject encode() {
+		JSONObject json = new JSONObject();
+		json.put("oxygen", oxygen);
+		json.put("temperature", temperature);
+		return json;
 	}
 
 	@Override
-	public void decode(String input) {
-
+	public void decode(JSONObject source) {
+		this.oxygen = source.getIntValue("oxygen");
+		this.temperature = source.getIntValue("temperature");
 	}
 
 }

@@ -1,23 +1,36 @@
 package org.aimfd.world.planet;
 
-import org.aimfd.base.IDataCodec;
+import org.aimfd.base.IDataJSONCodec;
 import org.aimfd.world.planet.enterprise.data.EnterpriseData;
 import org.aimfd.world.planet.environment.data.EnvironmentData;
 import org.aimfd.world.planet.terrain.data.TerrainData;
 
-public class PlanetDataCodec implements IDataCodec<String, String> {
+import com.alibaba.fastjson.JSONObject;
+
+public class PlanetDataCodec implements IDataJSONCodec {
 
 	protected EnvironmentData environmentData;
 	protected EnterpriseData enterpriseData;
 	protected TerrainData terrainData;
 
 	@Override
-	public String encode() {
-		return null;
+	public JSONObject encode() {
+		JSONObject json = new JSONObject();
+		json.put("environmentData", environmentData.encode());
+		json.put("enterpriseData", enterpriseData.encode());
+//		json.put("terrainData", terrainData.encode());
+		return json;
 	}
 
 	@Override
-	public void decode(String input) {
+	public void decode(JSONObject source) {
+		environmentData.resetData();
+		enterpriseData.resetData();
+//		terrainData.resetData();
 
+		environmentData.decode(source.getJSONObject("environmentData"));
+		enterpriseData.decode(source.getJSONObject("enterpriseData"));
+//		source.getJSONObject("terrainData");
 	}
+
 }

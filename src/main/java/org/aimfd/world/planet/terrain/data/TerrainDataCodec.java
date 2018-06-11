@@ -2,22 +2,26 @@ package org.aimfd.world.planet.terrain.data;
 
 import java.util.Map;
 
-import org.aimfd.base.IDataCodec;
+import org.aimfd.base.IDataJSONCodec;
 import org.aimfd.world.planet.terrain.data.unit.TerrainUnitData;
 
-public class TerrainDataCodec implements IDataCodec<String, String> {
+import com.alibaba.fastjson.JSONObject;
+
+public class TerrainDataCodec implements IDataJSONCodec {
 
 	protected int height;
 	protected int width;
 	protected Map<Integer, TerrainUnitData> unitDataMap;
 
 	@Override
-	public String encode() {
+	public JSONObject encode() {
+		JSONObject json = new JSONObject();
 		return null;
 	}
 
 	@Override
-	public void decode(String input) {
+	public void decode(JSONObject source) {
+		// TODO Auto-generated method stub
 
 	}
 
