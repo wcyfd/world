@@ -1,5 +1,6 @@
 package org.aimfd.world.player.match.manager.module;
 
+import org.aimfd.world.handler.MatchHandler;
 import org.aimfd.world.player.Player;
 import org.aimfd.world.system.SystemICenter;
 import org.aimfd.world.system.match.ISystemMatchPublic;
@@ -14,6 +15,8 @@ public class BeginMatchModule {
 	}
 
 	public void match() {
+		MatchHandler.responseMatch(player.getClientId());
+		
 		systemMatchPublic.beginMatch(player.getAccount());
 	}
 }

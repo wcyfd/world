@@ -35,7 +35,7 @@ public class BeginMatchModule {
 		matchData.addAccount(account);
 
 		// 如果到人数了，则把人加入到房间中，并从原来的位置移除
-		int count = 4;
+		int count = 1;
 		extractWaitPlayer(count);
 
 	}
@@ -46,28 +46,30 @@ public class BeginMatchModule {
 	 * @param count
 	 */
 	private void extractWaitPlayer(int count) {
-		if (matchData.getQueueLength() >= count) {
-			List<String> accounts = new ArrayList<>(count);
+		if (matchData.getQueueLength() < count)
+			return;
 
-			for (int i = 0; i < count; i++) {
-				accounts.add(matchData.poll());
-			}
+		List<String> accounts = new ArrayList<>(count);
 
-			// 取出先排进去的人并开始游戏
-			Planet planet = PlanetCache.borrowPlanet();
-			IEnterpriseInternal enterpriseInternal = planet.getPlanetManagerInterface(IEnterpriseInternal.class);
-			enterpriseInternal.applyEnterprises(accounts);
-
-			// 房间管理器注册
-			for (String a : accounts) {
-				roomPublic.regist(a, planet.getPlanetId());
-			}
-
-			// 游戏开始
-			planet.start();
-			
-			PlanetHandler.sendMassPlanet(enterpriseInternal.getClientIds(), planet.getPlanetAllData().getPlanetData());
+		for (int i = 0; i < count; i++) {
+			accounts.add(matchData.poll());
 		}
+
+		// 取出先排进去的人并开始游戏
+		Planet planet = PlanetCache.borrowPlanet();
+		IEnterpriseInternal enterpriseInternal = planet.getPlanetManagerInterface(IEnterpriseInternal.class);
+		enterpriseInternal.applyEnterprises(accounts);
+
+		// 房间管理器注册
+		for (String a : accounts) {
+			roomPublic.regist(a, planet.getPlanetId());
+		}
+
+		// 游戏开始
+		planet.start();
+
+		PlanetHandler.sendMassPlanet(enterpriseInternal.getClientIds(), planet.getPlanetAllData().getPlanetData());
+
 	}
 
 }
