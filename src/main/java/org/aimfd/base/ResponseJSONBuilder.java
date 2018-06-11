@@ -24,7 +24,8 @@ public class ResponseJSONBuilder {
 		for (int i = 0; i < params.length; i += 2) {
 			String paramName = (String) params[i];
 			Object paramObject = params[i + 1];
-			paramJson.put(paramName, paramObject);
+
+			paramJson.put(paramName, paramObject instanceof IDataJSONCodec ? ((IDataJSONCodec) paramObject).encode() : paramObject);
 		}
 
 		return json.toJSONString();
