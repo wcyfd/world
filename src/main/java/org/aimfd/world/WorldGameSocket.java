@@ -2,6 +2,7 @@ package org.aimfd.world;
 
 import org.aimfd.base.GameSocket;
 import org.aimfd.world.handler.AccountHandler;
+import org.aimfd.world.handler.MatchHandler;
 import org.aimfd.world.handler.PlanetHandler;
 
 public class WorldGameSocket extends GameSocket {
@@ -43,6 +44,7 @@ public class WorldGameSocket extends GameSocket {
 	private void registHandlers() {
 		registHandler(AccountHandler.class);
 		registHandler(PlanetHandler.class);
+		registHandler(MatchHandler.class);
 	}
 
 }
