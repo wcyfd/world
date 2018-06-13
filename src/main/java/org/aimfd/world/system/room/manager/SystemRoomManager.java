@@ -2,6 +2,7 @@ package org.aimfd.world.system.room.manager;
 
 import org.aimfd.world.system.SystemManager;
 import org.aimfd.world.system.room.ISystemRoomPublic;
+import org.aimfd.world.system.room.manager.module.PlanetLocationModule;
 import org.aimfd.world.system.room.manager.module.RegistModule;
 import org.aimfd.world.system.room.manager.module.UnRegistModule;
 
@@ -15,11 +16,13 @@ public class SystemRoomManager extends SystemManager implements ISystemRoomPubli
 
 	private RegistModule registModule;
 	private UnRegistModule unRegistModule;
+	private PlanetLocationModule planetLocationModule;
 
 	@Override
 	protected void init() {
 		registModule = new RegistModule();
 		unRegistModule = new UnRegistModule();
+		planetLocationModule = new PlanetLocationModule();
 	}
 
 	@Override
@@ -35,6 +38,11 @@ public class SystemRoomManager extends SystemManager implements ISystemRoomPubli
 	@Override
 	public boolean atRoom(String account) {
 		return registModule.atRoom(account);
+	}
+
+	@Override
+	public int getPlanetId(String account) {
+		return planetLocationModule.getPlanetId(account);
 	}
 
 }

@@ -32,4 +32,9 @@ public class PlanetEnterpriseManager extends PlanetManager implements IEnterpris
 	public List<Integer> getClientIds() {
 		return enterpriseInitModule.getClientIds();
 	}
+
+	@Override
+	public int getEnterpriseId(String account) {
+		return enterpriseInitModule.getEnterpriseId(account);
+	}
 }

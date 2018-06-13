@@ -65,4 +65,18 @@ public class EnterpriseInitModule {
 		return clientIds;
 	}
 
+	/**
+	 * 根据帐号获取企业id
+	 * 
+	 * @param account
+	 * @return
+	 */
+	public int getEnterpriseId(String account) {
+		Integer enterpriseId = enterpriseData.getAccounts().get(account);
+		if (enterpriseId == null) {
+			return -1;
+		}
+		return enterpriseId;
+	}
+
 }

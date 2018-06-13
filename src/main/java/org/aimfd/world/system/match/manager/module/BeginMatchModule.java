@@ -8,6 +8,7 @@ import org.aimfd.world.PlanetCache;
 import org.aimfd.world.handler.PlanetHandler;
 import org.aimfd.world.planet.Planet;
 import org.aimfd.world.planet.enterprise.IEnterpriseInternal;
+import org.aimfd.world.planet.terrain.ITerrainPublic;
 import org.aimfd.world.system.SystemICenter;
 import org.aimfd.world.system.match.data.IMatchData;
 import org.aimfd.world.system.room.ISystemRoomPublic;
@@ -66,6 +67,9 @@ public class BeginMatchModule {
 		}
 
 		// 游戏开始
+		// 设置地图大小
+		planet.getPlanetManagerInterface(ITerrainPublic.class).setSize(5, 8);
+		// 游戏场景初始化
 		planet.start();
 
 		PlanetHandler.sendMassPlanet(enterpriseInternal.getClientIds(), planet.getPlanetAllData().getPlanetData());

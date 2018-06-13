@@ -30,4 +30,12 @@ public interface ISystemRoomPublic {
 	 * @return
 	 */
 	boolean atRoom(String account);
+
+	/**
+	 * 获得账号所在的星球id
+	 * 
+	 * @param account
+	 * @return
+	 */
+	int getPlanetId(String account);
 }

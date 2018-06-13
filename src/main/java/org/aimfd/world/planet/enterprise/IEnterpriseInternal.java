@@ -23,4 +23,12 @@ public interface IEnterpriseInternal {
 	 * @return
 	 */
 	List<Integer> getClientIds();
+
+	/**
+	 * 获得企业id
+	 * 
+	 * @param account
+	 * @return
+	 */
+	int getEnterpriseId(String account);
 }

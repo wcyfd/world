@@ -11,4 +11,9 @@ public class PlayerPlanetManager extends PlayerManager implements IPlanetInterna
 
 	}
 
+	@Override
+	public void putTerrain(int id, int type) {
+
+	}
+
 }

@@ -7,10 +7,11 @@ import org.aimfd.base.ResponseJSONBuilder;
 import org.aimfd.base.Route;
 import org.aimfd.world.PlayerCache;
 import org.aimfd.world.planet.PlanetData;
+import org.aimfd.world.player.planet.IPlanetPublic;
 
 public class PlanetHandler {
-	@ClientRequest(alias = "getPlanetInfo")
-	public static void getPlanetInfo(int clientId) {
+	@ClientRequest(alias = "requestPlanetInfo")
+	public static void requestPlanetInfo(int clientId) {
 		PlayerCache.getPlayerByClientId(clientId);
 	}
 
@@ -23,4 +24,10 @@ public class PlanetHandler {
 		String response = ResponseJSONBuilder.build("responsePlanetInfo", "planetData", planetData);
 		Route.sendMass(clientIds, response);
 	}
+
+	@ClientRequest(alias = "requestPutTerrain")
+	public static void requestPutTerrain(int clientId, int id, int type) {
+		PlayerCache.getPlayerByClientId(clientId).getPlayerManager(IPlanetPublic.class).putTerrain(id, type);
+	}
+
 }

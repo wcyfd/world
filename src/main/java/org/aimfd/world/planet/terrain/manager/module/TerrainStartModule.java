@@ -11,19 +11,24 @@ import org.slf4j.Logger;
  * @author AIM
  *
  */
-public class TerrainInitModule {
+public class TerrainStartModule {
 
 	private Logger logger;
 	private ITerrainData terrainData;
 
-	public TerrainInitModule(Planet planet) {
+	public TerrainStartModule(Planet planet) {
 		this.logger = planet.logger();
 		this.terrainData = planet.getPlanetAllData().getPlanetData().getTerrainData();
 	}
 
-	public void terrainInit(int width, int height) {
+	public void setSize(int width, int height) {
 		terrainData.setTerrainWidth(width);
 		terrainData.setTerrainHeight(height);
+	}
+
+	public void onStart() {
+		int height = terrainData.getTerrainHeight();
+		int width = terrainData.getTerrainWidth();
 		terrainData.setTerrainUnitCount(0);
 
 		int LEFT_TOP = 0;

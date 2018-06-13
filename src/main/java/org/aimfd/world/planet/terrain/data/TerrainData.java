@@ -8,8 +8,6 @@ import org.aimfd.world.planet.terrain.data.unit.TerrainUnitData;
 
 public class TerrainData extends TerrainDataCodec implements ITerrainData, IData {
 
-	private int terrainUnitCount;
-
 	public TerrainData() {
 		this.height = 0;
 		this.width = 0;
@@ -62,8 +60,8 @@ public class TerrainData extends TerrainDataCodec implements ITerrainData, IData
 		this.height = -1;
 		this.width = -1;
 		this.terrainUnitCount = -1;
-		for (TerrainUnitData unitData : unitDataMap.values()) {
-			unitData.resetData();
+		for (ITerrainUnitData unitData : unitDataMap.values()) {
+			((IData) unitData).resetData();
 		}
 	}
 

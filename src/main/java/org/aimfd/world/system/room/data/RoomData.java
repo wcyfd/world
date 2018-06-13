@@ -1,11 +1,11 @@
 package org.aimfd.world.system.room.data;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RoomData extends RoomDataCodec implements IRoomData {
 	public RoomData() {
-		roomMap = new HashMap<>();
+		roomMap = new ConcurrentHashMap<>();
 	}
 
 	@Override
