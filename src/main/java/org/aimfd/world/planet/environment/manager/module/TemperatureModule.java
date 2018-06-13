@@ -20,4 +20,8 @@ public class TemperatureModule {
 	public void addTemperature(int temperature) {
 		data.setTemperature(data.getTemperature() + temperature);
 	}
+	
+	public void onStart() {
+		data.setTemperature(-20);
+	}
 }

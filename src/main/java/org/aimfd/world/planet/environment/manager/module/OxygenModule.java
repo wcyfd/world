@@ -19,4 +19,8 @@ public class OxygenModule {
 	public void addOxygen(int oxygen) {
 		data.setOxygen(data.getOxygen() + oxygen);
 	}
+	
+	public void onStart() {
+		data.setOxygen(0);
+	}
 }
