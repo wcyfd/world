@@ -11,5 +11,9 @@ public interface ITerrain4Data {
 
 	int getHeight();
 
+	void setCount(int count);
+
+	int getCount();
+
 	ITerrain4UnitData getITerrain4Data(int id);
 }

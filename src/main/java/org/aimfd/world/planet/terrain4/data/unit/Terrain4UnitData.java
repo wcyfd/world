@@ -1,6 +1,8 @@
 package org.aimfd.world.planet.terrain4.data.unit;
 
-public class Terrain4UnitData extends Terrain4UnitDataCodec implements ITerrain4UnitData, ITerrain4ReadData {
+import org.aimfd.base.IData;
+
+public class Terrain4UnitData extends Terrain4UnitDataCodec implements IData, ITerrain4UnitData, ITerrain4ReadData {
 	private ITerrain4UnitData left;
 	private ITerrain4UnitData right;
 	private ITerrain4UnitData top;
@@ -55,6 +57,14 @@ public class Terrain4UnitData extends Terrain4UnitDataCodec implements ITerrain4
 	@Override
 	public void bottom(ITerrain4UnitData unitData) {
 		this.bottom = unitData;
+	}
+
+	@Override
+	public void resetData() {
+		left = null;
+		right = null;
+		top = null;
+		bottom = null;
 	}
 
 }
