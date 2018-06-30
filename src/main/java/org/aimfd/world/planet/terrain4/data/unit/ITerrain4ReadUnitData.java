@@ -1,6 +1,6 @@
 package org.aimfd.world.planet.terrain4.data.unit;
 
-public interface ITerrain4ReadData {
+public interface ITerrain4ReadUnitData {
 	ITerrain4UnitData left();
 
 	ITerrain4UnitData right();

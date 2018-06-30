@@ -5,4 +5,9 @@ import org.aimfd.world.planet.terrain4.ITerrain4Public;
 
 public class PlanetTerrain4Manager extends PlanetManager implements ITerrain4Public {
 
+	@Override
+	public void move(int x, int y) {
+		
+	}
+
 }

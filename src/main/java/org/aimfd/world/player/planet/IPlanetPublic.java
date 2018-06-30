@@ -7,4 +7,12 @@ public interface IPlanetPublic {
 	 * @param type
 	 */
 	public void putTerrain(int id, int type);
+
+	/**
+	 * 全局坐标移动
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	void move(int x, int y);
 }

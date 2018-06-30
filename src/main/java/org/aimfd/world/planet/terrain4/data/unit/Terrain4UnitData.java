@@ -2,7 +2,7 @@ package org.aimfd.world.planet.terrain4.data.unit;
 
 import org.aimfd.base.IData;
 
-public class Terrain4UnitData extends Terrain4UnitDataCodec implements IData, ITerrain4UnitData, ITerrain4ReadData {
+public class Terrain4UnitData extends Terrain4UnitDataCodec implements IData, ITerrain4UnitData, ITerrain4ReadUnitData {
 	private ITerrain4UnitData left;
 	private ITerrain4UnitData right;
 	private ITerrain4UnitData top;
