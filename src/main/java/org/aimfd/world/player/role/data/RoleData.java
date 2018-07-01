@@ -1,16 +1,12 @@
-package org.aimfd.world.planet.role.data;
+package org.aimfd.world.player.role.data;
 
 import org.aimfd.base.IData;
 
-/**
- * 角色数据
- * 
- * @author AIM
- *
- */
-public class RoleData extends RoleDataCodec implements IData, IRoleData {
+public class RoleData extends RoleDataCodec implements IRoleData, IData {
+	private int roleId;
 
 	public RoleData() {
+		this.roleId = -1;
 		this.name = null;
 		this.account = null;
 		this.x = -1;
@@ -38,11 +34,41 @@ public class RoleData extends RoleDataCodec implements IData, IRoleData {
 	}
 
 	@Override
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+
+	@Override
+	public int getRoleId() {
+		return roleId;
+	}
+
+	@Override
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	@Override
 	public void resetData() {
+		this.roleId = -1;
 		this.name = null;
 		this.account = null;
 		this.x = -1;
 		this.y = -1;
 	}
-
 }

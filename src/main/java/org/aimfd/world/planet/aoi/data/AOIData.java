@@ -6,7 +6,7 @@ import org.aimfd.base.IData;
 import org.aimfd.world.planet.aoi.data.unit.IAOIUnitData;
 
 /**
- * AOI总集
+ * aoi总集
  * 
  * @author AIM
  *
@@ -14,17 +14,22 @@ import org.aimfd.world.planet.aoi.data.unit.IAOIUnitData;
 public class AOIData extends AOIDataCodec implements IData, IAOIData {
 
 	public AOIData() {
-		this.aoiUnitDataMap = new HashMap<>();
+		this.aoiUnitMap = new HashMap<>();
 	}
 
 	@Override
 	public IAOIUnitData getAOIUnitData(int id) {
-		return aoiUnitDataMap.get(id);
+		return aoiUnitMap.get(id);
+	}
+
+	@Override
+	public void addAOIUnitData(IAOIUnitData unitData) {
+		aoiUnitMap.put(unitData.getId(), unitData);
 	}
 
 	@Override
 	public void resetData() {
-		aoiUnitDataMap.clear();
+		aoiUnitMap.clear();
 	}
 
 }

@@ -1,16 +1,10 @@
-package org.aimfd.world.planet.role.data;
+package org.aimfd.world.player.role.data;
 
 import org.aimfd.base.IDataJSONCodec;
 
 import com.alibaba.fastjson.JSONObject;
 
-/**
- * 角色数据序列化
- * 
- * @author AIM
- *
- */
-public class RoleDataCodec implements IDataJSONCodec {
+public class RoleDataCodec implements IDataJSONCodec{
 	protected String name;
 	protected String account;
 	protected int x;
@@ -33,5 +27,4 @@ public class RoleDataCodec implements IDataJSONCodec {
 		this.x = source.getIntValue("x");
 		this.y = source.getIntValue("y");
 	}
-
 }

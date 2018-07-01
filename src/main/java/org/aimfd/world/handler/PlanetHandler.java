@@ -30,10 +30,9 @@ public class PlanetHandler {
 		PlayerCache.getPlayerByClientId(clientId).getPlayerManager(IPlanetPublic.class).putTerrain(id, type);
 	}
 
-	
 	@ClientRequest(alias = "requestMove")
 	public static void requestMove(int clientId, int x, int y) {
-		
+
 	}
 
 }

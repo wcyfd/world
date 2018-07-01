@@ -2,6 +2,7 @@ package org.aimfd.world.planet;
 
 import org.aimfd.world.planet.enterprise.data.IEnterpriseData;
 import org.aimfd.world.planet.environment.data.IEnvironmentData;
+import org.aimfd.world.planet.roles.data.IRolesData;
 import org.aimfd.world.planet.terrain.data.ITerrainData;
 
 /**
@@ -31,4 +32,12 @@ public interface IPlanetData {
 	 * @return
 	 */
 	ITerrainData getTerrainData();
+
+	/**
+	 * 角色数据
+	 * 
+	 * @return
+	 */
+	IRolesData getRolesData();
+
 }

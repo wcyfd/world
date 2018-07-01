@@ -1,12 +1,20 @@
-package org.aimfd.world.planet.role.data;
+package org.aimfd.world.player.role.data;
 
-/**
- * 角色数据
- * 
- * @author AIM
- *
- */
 public interface IRoleData {
+	/**
+	 * 设置角色id
+	 * 
+	 * @param roleId
+	 */
+	void setRoleId(int roleId);
+
+	/**
+	 * 获得角色id
+	 * 
+	 * @return
+	 */
+	int getRoleId();
+
 	/**
 	 * 设置名字
 	 * 
@@ -35,4 +43,11 @@ public interface IRoleData {
 	 */
 	String getAccount();
 
+	void setX(int x);
+
+	int getX();
+
+	void setY(int y);
+
+	int getY();
 }

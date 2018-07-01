@@ -77,6 +77,15 @@ public class AData {
 		return PlayerCache.getPlayerByClientId(clientId).getPlayerAllData();
 	}
 
+	public static PlayerAllData getPlayerAllData(String account) {
+		Player player = PlayerCache.getPlayerByAccount(account);
+		if (player == null) {
+			return null;
+		}
+
+		return player.getPlayerAllData();
+	}
+
 	public static SystemAllData getSystemAllData() {
 		return aData.aSystem.getSystemAllData();
 	}

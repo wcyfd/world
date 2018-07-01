@@ -2,18 +2,19 @@ package org.aimfd.world.planet.aoi.data;
 
 import org.aimfd.world.planet.aoi.data.unit.IAOIUnitData;
 
-/**
- * aoi总集合
- * 
- * @author AIM
- *
- */
 public interface IAOIData {
 	/**
-	 * 根据id获取AOI单元
+	 * 获得一块AOI区域
 	 * 
 	 * @param id
 	 * @return
 	 */
 	IAOIUnitData getAOIUnitData(int id);
+
+	/**
+	 * 添加一块AOI区域
+	 * 
+	 * @param unitData
+	 */
+	void addAOIUnitData(IAOIUnitData unitData);
 }

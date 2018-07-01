@@ -1,22 +1,23 @@
-package org.aimfd.world.planet.aoi.data;
+package org.aimfd.world.planet.roles.data;
 
 import java.util.Map;
 
 import org.aimfd.base.IDataJSONCodec;
-import org.aimfd.world.planet.aoi.data.unit.IAOIUnitData;
+import org.aimfd.world.player.role.data.IRoleData;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-public class AOIDataCodec implements IDataJSONCodec {
-	protected Map<Integer, IAOIUnitData> aoiUnitMap;
+public class RolesDataCodec implements IDataJSONCodec {
+
+	protected Map<Integer, IRoleData> roleDataMap;
 
 	@Override
 	public JSONObject encode() {
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
-		json.put("aoiUnitMap", array);
-		for (IAOIUnitData unitData : aoiUnitMap.values()) {
+		json.put("roleDataMap", array);
+		for (IRoleData unitData : roleDataMap.values()) {
 			IDataJSONCodec unitDataCodec = (IDataJSONCodec) unitData;
 			array.add(unitDataCodec.encode());
 		}

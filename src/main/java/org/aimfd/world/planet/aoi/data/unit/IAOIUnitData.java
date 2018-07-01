@@ -1,23 +1,6 @@
 package org.aimfd.world.planet.aoi.data.unit;
 
-import java.util.Map;
-
-import org.aimfd.world.planet.role.data.IRoleData;
-
-/**
- * aoi单元
- * 
- * @author AIM
- *
- */
 public interface IAOIUnitData {
-	/**
-	 * 获得角色表
-	 * 
-	 * @return
-	 */
-	Map<String, IRoleData> getRoleDataMap();
-
 	/**
 	 * 设置id
 	 * 
@@ -26,9 +9,25 @@ public interface IAOIUnitData {
 	void setId(int id);
 
 	/**
-	 * 获得id
+	 * 获取id
 	 * 
 	 * @return
 	 */
 	int getId();
+
+	void setX(int x);
+
+	int getX();
+
+	void setY(int y);
+
+	int getY();
+
+	void setWidth(int width);
+
+	int getWidth();
+
+	void setHeight(int height);
+
+	int getHeight();
 }

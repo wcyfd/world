@@ -17,6 +17,8 @@ import org.aimfd.world.player.match.manager.PlayerMatchManager;
 import org.aimfd.world.player.planet.IPlanetInternal;
 import org.aimfd.world.player.planet.IPlanetPublic;
 import org.aimfd.world.player.planet.manager.PlayerPlanetManager;
+import org.aimfd.world.player.role.IRolePublic;
+import org.aimfd.world.player.role.manager.PlayerRoleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +38,7 @@ public class Player {
 	private List<PlayerManager> playerManagers = new ArrayList<>();
 
 	public Player(int clientId) {
-		logger = LoggerPrefixFactory.getLogger(this.getClass());
+		logger = LoggerPrefixFactory.getLogger(Player.class);
 		this.clientId = clientId;
 		this.playerAllData = new PlayerAllData();
 
@@ -63,6 +65,7 @@ public class Player {
 		registPlayerManager(PlayerAccountManager.class, IAccountInternal.class, IAccountPublic.class);
 		registPlayerManager(PlayerPlanetManager.class, IPlanetInternal.class, IPlanetPublic.class);
 		registPlayerManager(PlayerMatchManager.class, IMatchPublic.class);
+		registPlayerManager(PlayerRoleManager.class, IRolePublic.class);
 	}
 
 	protected void registPlayerManager(Class<? extends PlayerManager> playerManagerClazz, Class<?>... interfaceClasses) {

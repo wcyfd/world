@@ -8,16 +8,16 @@ public class PlayerPlanetManager extends PlayerManager implements IPlanetInterna
 
 	@Override
 	public void init() {
-		
-	}
-
-	@Override
-	public void join() {
 
 	}
 
 	@Override
 	public void putTerrain(int id, int type) {
+
+	}
+
+	@Override
+	public void join() {
 
 	}
 
