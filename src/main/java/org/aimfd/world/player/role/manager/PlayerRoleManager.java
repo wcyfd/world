@@ -2,7 +2,6 @@ package org.aimfd.world.player.role.manager;
 
 import org.aimfd.world.player.PlayerManager;
 import org.aimfd.world.player.role.IRolePublic;
-import org.aimfd.world.player.role.data.IRoleData;
 import org.aimfd.world.player.role.manager.module.RoleModule;
 
 public class PlayerRoleManager extends PlayerManager implements IRolePublic {
@@ -15,8 +14,8 @@ public class PlayerRoleManager extends PlayerManager implements IRolePublic {
 	}
 
 	@Override
-	public IRoleData getRoleData() {
-		return roleModule.getRoleData();
+	public void move(int x, int y) {
+		roleModule.move(x, y);
 	}
 
 }

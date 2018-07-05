@@ -1,6 +1,7 @@
 package org.aimfd.world.planet;
 
 import org.aimfd.base.IDataJSONCodec;
+import org.aimfd.world.planet.aoi.data.IAOIGridData;
 import org.aimfd.world.planet.enterprise.data.EnterpriseData;
 import org.aimfd.world.planet.environment.data.EnvironmentData;
 import org.aimfd.world.planet.roles.data.IRolesData;
@@ -14,6 +15,7 @@ public class PlanetDataCodec implements IDataJSONCodec {
 	protected EnterpriseData enterpriseData;
 	protected TerrainData terrainData;
 	protected IRolesData roleData;
+	protected IAOIGridData aoiData;
 
 	@Override
 	public JSONObject encode() {
@@ -22,6 +24,7 @@ public class PlanetDataCodec implements IDataJSONCodec {
 		json.put("enterpriseData", enterpriseData.encode());
 		// json.put("terrainData", terrainData.encode());
 		json.put("roleData", ((IDataJSONCodec) roleData).encode());
+		json.put("aoiData", ((IDataJSONCodec) aoiData).encode());
 		return json;
 	}
 

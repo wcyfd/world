@@ -1,12 +1,13 @@
 package org.aimfd.world.planet.aoi.data.unit;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.aimfd.base.IData;
 
-public class AOIUnitData extends AOIUnitDataCodec implements IData, IAOIUnitData {
+public class AOIGridUnitData extends AOIGridUnitDataCodec implements IData, IAOIGridUnitData {
 
-	public AOIUnitData() {
+	public AOIGridUnitData() {
 		this.id = -1;
 		this.roleIdSet = new HashSet<>();
 	}
@@ -67,4 +68,8 @@ public class AOIUnitData extends AOIUnitDataCodec implements IData, IAOIUnitData
 		return height;
 	}
 
+	@Override
+	public Set<Integer> getRoleIdSet() {
+		return roleIdSet;
+	}
 }

@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author AIM
  *
  */
-public class AOIUnitDataCodec implements IDataJSONCodec {
+public class AOIGridUnitDataCodec implements IDataJSONCodec {
 
 	protected Set<Integer> roleIdSet;
 	protected int id;

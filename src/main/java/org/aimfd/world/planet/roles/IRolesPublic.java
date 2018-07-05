@@ -24,4 +24,13 @@ public interface IRolesPublic {
 	 * @param roleData
 	 */
 	void leave(IRoleData roleData);
+
+	/**
+	 * 移动
+	 * 
+	 * @param roleData
+	 * @param destX
+	 * @param destY
+	 */
+	void move(IRoleData roleData, int destX, int destY);
 }

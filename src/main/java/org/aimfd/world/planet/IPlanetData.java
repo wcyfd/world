@@ -1,5 +1,6 @@
 package org.aimfd.world.planet;
 
+import org.aimfd.world.planet.aoi.data.IAOIGridData;
 import org.aimfd.world.planet.enterprise.data.IEnterpriseData;
 import org.aimfd.world.planet.environment.data.IEnvironmentData;
 import org.aimfd.world.planet.roles.data.IRolesData;
@@ -40,4 +41,10 @@ public interface IPlanetData {
 	 */
 	IRolesData getRolesData();
 
+	/**
+	 * 获取视野数据
+	 * 
+	 * @return
+	 */
+	IAOIGridData getAOIData();
 }

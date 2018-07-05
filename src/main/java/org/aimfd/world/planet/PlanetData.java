@@ -1,6 +1,8 @@
 package org.aimfd.world.planet;
 
 import org.aimfd.base.IData;
+import org.aimfd.world.planet.aoi.data.AOIGridData;
+import org.aimfd.world.planet.aoi.data.IAOIGridData;
 import org.aimfd.world.planet.enterprise.data.EnterpriseData;
 import org.aimfd.world.planet.enterprise.data.IEnterpriseData;
 import org.aimfd.world.planet.environment.data.EnvironmentData;
@@ -23,6 +25,7 @@ public class PlanetData extends PlanetDataCodec implements IData, IPlanetData {
 		this.environmentData = new EnvironmentData();
 		this.terrainData = new TerrainData();
 		this.roleData = new RolesData();
+		this.aoiData = new AOIGridData();
 	}
 
 	@Override
@@ -46,11 +49,17 @@ public class PlanetData extends PlanetDataCodec implements IData, IPlanetData {
 	}
 
 	@Override
+	public IAOIGridData getAOIData() {
+		return aoiData;
+	}
+
+	@Override
 	public void resetData() {
 		this.environmentData.resetData();
 		this.enterpriseData.resetData();
 		this.terrainData.resetData();
 		((IData) this.roleData).resetData();
+		((IData) this.aoiData).resetData();
 	}
 
 }

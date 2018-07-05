@@ -1,12 +1,12 @@
 package org.aimfd.world.player.role;
 
-import org.aimfd.world.player.role.data.IRoleData;
-
 public interface IRolePublic {
+
 	/**
-	 * 获得角色
+	 * 移动
 	 * 
-	 * @return
+	 * @param x
+	 * @param y
 	 */
-	IRoleData getRoleData();
+	void move(int x, int y);
 }

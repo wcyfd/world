@@ -14,9 +14,9 @@ public interface IRolesData {
 	/**
 	 * 添加角色
 	 * 
-	 * @param unitData
+	 * @param roleData
 	 */
-	void addRoleData(IRoleData unitData);
+	void addRoleData(IRoleData roleData);
 
 	/**
 	 * 删除角色

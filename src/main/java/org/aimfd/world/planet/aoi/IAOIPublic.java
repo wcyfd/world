@@ -23,7 +23,7 @@ public interface IAOIPublic {
 	 * 
 	 * @param account
 	 */
-	void leave(int roleId);
+	void leave(int roleId, int x, int y);
 
 	/**
 	 * 移动通知
