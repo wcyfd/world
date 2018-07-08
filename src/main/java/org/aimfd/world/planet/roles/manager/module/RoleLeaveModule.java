@@ -17,8 +17,8 @@ public class RoleLeaveModule {
 
 	public void leave(IRoleData roleData) {
 		int roleId = roleData.getRoleId();
-		int x = roleData.getX();
-		int y = roleData.getY();
+		int x = roleData.getCoord().getX();
+		int y = roleData.getCoord().getY();
 
 		rolesData.removeRoleData(roleId);
 		// aoi视野内通知离开

@@ -20,11 +20,11 @@ public class RoleMoveModule {
 	 * @param destY
 	 */
 	public void move(IRoleData roleData, int destX, int destY) {
-		int srcX = roleData.getX();
-		int srcY = roleData.getY();
+		int srcX = roleData.getCoord().getX();
+		int srcY = roleData.getCoord().getY();
 
-		roleData.setX(destX);
-		roleData.setY(destY);
+		roleData.getCoord().setX(destX);
+		roleData.getCoord().setY(destY);
 
 		// aoi视野内通知移动
 		aoiPublic.move(roleData.getRoleId(), srcX, srcY, destX, destY);

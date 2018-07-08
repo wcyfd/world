@@ -1,5 +1,7 @@
 package org.aimfd.world.player.role.data;
 
+import org.aimfd.world.player.role.data.unit.IRoleCoordUnitData;
+
 public interface IRoleData {
 	/**
 	 * 设置角色id
@@ -43,11 +45,10 @@ public interface IRoleData {
 	 */
 	String getAccount();
 
-	void setX(int x);
-
-	int getX();
-
-	void setY(int y);
-
-	int getY();
+	/**
+	 * 获得角色坐标
+	 * 
+	 * @return
+	 */
+	IRoleCoordUnitData getCoord();
 }

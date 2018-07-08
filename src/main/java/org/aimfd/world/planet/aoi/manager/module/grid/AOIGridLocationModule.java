@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.aimfd.world.PlayerCache;
 import org.aimfd.world.planet.Planet;
-import org.aimfd.world.planet.aoi.data.IAOIGridData;
-import org.aimfd.world.planet.aoi.data.unit.IAOIGridUnitData;
+import org.aimfd.world.planet.aoi.data.grid.IAOIGridData;
+import org.aimfd.world.planet.aoi.data.grid.unit.IAOIGridUnitData;
 import org.aimfd.world.planet.roles.data.IRolesData;
 import org.aimfd.world.player.Player;
 

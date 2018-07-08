@@ -1,7 +1,7 @@
 package org.aimfd.world.planet;
 
 import org.aimfd.base.IDataJSONCodec;
-import org.aimfd.world.planet.aoi.data.IAOIGridData;
+import org.aimfd.world.planet.aoi.data.grid.IAOIGridData;
 import org.aimfd.world.planet.enterprise.data.EnterpriseData;
 import org.aimfd.world.planet.environment.data.EnvironmentData;
 import org.aimfd.world.planet.roles.data.IRolesData;

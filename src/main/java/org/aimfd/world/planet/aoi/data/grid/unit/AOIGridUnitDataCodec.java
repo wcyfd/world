@@ -1,4 +1,4 @@
-package org.aimfd.world.planet.aoi.data.unit;
+package org.aimfd.world.planet.aoi.data.grid.unit;
 
 import java.util.Set;
 

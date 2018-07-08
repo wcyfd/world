@@ -1,10 +1,10 @@
-package org.aimfd.world.planet.aoi.data;
+package org.aimfd.world.planet.aoi.data.grid;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.aimfd.base.IData;
-import org.aimfd.world.planet.aoi.data.unit.IAOIGridUnitData;
+import org.aimfd.world.planet.aoi.data.grid.unit.IAOIGridUnitData;
 
 /**
  * aoi总集

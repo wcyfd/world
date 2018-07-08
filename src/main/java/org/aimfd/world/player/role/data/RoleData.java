@@ -1,16 +1,16 @@
 package org.aimfd.world.player.role.data;
 
 import org.aimfd.base.IData;
+import org.aimfd.world.player.role.data.unit.IRoleCoordUnitData;
+import org.aimfd.world.player.role.data.unit.RoleCoordUnitData;
 
 public class RoleData extends RoleDataCodec implements IRoleData, IData {
-	private int roleId;
 
 	public RoleData() {
 		this.roleId = -1;
 		this.name = null;
 		this.account = null;
-		this.x = -1;
-		this.y = -1;
+		this.coordData = new RoleCoordUnitData();
 	}
 
 	@Override
@@ -44,23 +44,8 @@ public class RoleData extends RoleDataCodec implements IRoleData, IData {
 	}
 
 	@Override
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	@Override
-	public int getX() {
-		return x;
-	}
-
-	@Override
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	@Override
-	public int getY() {
-		return y;
+	public IRoleCoordUnitData getCoord() {
+		return coordData;
 	}
 
 	@Override
@@ -68,7 +53,7 @@ public class RoleData extends RoleDataCodec implements IRoleData, IData {
 		this.roleId = -1;
 		this.name = null;
 		this.account = null;
-		this.x = -1;
-		this.y = -1;
+		((IData) coordData).resetData();
 	}
+
 }

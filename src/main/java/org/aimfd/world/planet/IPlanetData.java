@@ -1,6 +1,6 @@
 package org.aimfd.world.planet;
 
-import org.aimfd.world.planet.aoi.data.IAOIGridData;
+import org.aimfd.world.planet.aoi.data.grid.IAOIGridData;
 import org.aimfd.world.planet.enterprise.data.IEnterpriseData;
 import org.aimfd.world.planet.environment.data.IEnvironmentData;
 import org.aimfd.world.planet.roles.data.IRolesData;

@@ -25,11 +25,11 @@ public class RoleEnterModule {
 	public void join(IRoleData roleData, int x, int y) {
 		IRoleData unitData = rolesData.getRoleData(roleData.getRoleId());
 		if (unitData == null) {
-			rolesData.addRoleData(roleData);
 			unitData = roleData;
+			rolesData.addRoleData(roleData);
 		}
-		unitData.setX(x);
-		unitData.setY(y);
+		unitData.getCoord().setX(x);
+		unitData.getCoord().setY(y);
 		// 向视野内所有玩家发送进场通知
 		aoiPublic.enter(roleData, x, y);
 	}

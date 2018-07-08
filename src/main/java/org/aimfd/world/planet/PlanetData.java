@@ -1,8 +1,8 @@
 package org.aimfd.world.planet;
 
 import org.aimfd.base.IData;
-import org.aimfd.world.planet.aoi.data.AOIGridData;
-import org.aimfd.world.planet.aoi.data.IAOIGridData;
+import org.aimfd.world.planet.aoi.data.grid.AOIGridData;
+import org.aimfd.world.planet.aoi.data.grid.IAOIGridData;
 import org.aimfd.world.planet.enterprise.data.EnterpriseData;
 import org.aimfd.world.planet.enterprise.data.IEnterpriseData;
 import org.aimfd.world.planet.environment.data.EnvironmentData;
